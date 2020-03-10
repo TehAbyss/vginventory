@@ -10,8 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using VgInventory.Infra.WebApi.DataConnector;
+using VgInventory.Infra.WebApi.Models;
 
-namespace webapi
+namespace VgInventory.Infra.WebApi
 {
     public class Startup
     {
