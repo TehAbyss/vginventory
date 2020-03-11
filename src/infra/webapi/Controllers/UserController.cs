@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using VgInventory.Infra.WebApi.DataConnector;
+using VgInventory.Infra.WebApi.DataConnectors;
 using VgInventory.Infra.WebApi.Models;
 
 namespace VgInventory.Infra.WebApi.Controllers

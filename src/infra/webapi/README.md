@@ -16,10 +16,10 @@ Available routes:
 - [http://localhost:5000/api/user/{id}](http://localhost:5000/api/user/{id})
 - [http://localhost:5000/api/user/cred/{id}](http://localhost:5000/api/user/cred/{id})
 
-### `dotnet test`
+### `dotnet test ..\..\..\tests\unittests\infra\webapi`
 
 Launches the test runner.
 
 ### `dotnet build`
 
-Builds the app.
+Builds the component.

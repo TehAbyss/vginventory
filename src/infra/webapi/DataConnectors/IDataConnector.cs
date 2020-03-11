@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace VgInventory.Infra.WebApi.DataConnector
+namespace VgInventory.Infra.WebApi.DataConnectors
 {
     public interface IDataConnector<TEntity>
     {

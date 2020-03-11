@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using VgInventory.Infra.WebApi.Models;
 
-namespace VgInventory.Infra.WebApi.DataConnector
+namespace VgInventory.Infra.WebApi.DataConnectors
 {
     public class MockDataConnector<TEntity> : IDataConnector<TEntity>
     {
