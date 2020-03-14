@@ -8,12 +8,16 @@ export interface UserProfileProps {
 };
 
 export function useUserProfile(props: UserProfileProps) {
-    const [userBio, setUserBio] = useState<string>(props.user.Bio);
+    const [user, setUser] = useState<User>(props.user);
     const [videoGames, setVideoGames] = useState<VideoGame[]>(props.videoGames);
 
+    useEffect(() => {
+        setUser(props.user);
+    }, [props.user.Bio]);
+
     return {
-        userBio,
-        setUserBio,
+        user,
+        setUser,
         videoGames,
         setVideoGames
     };
