@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { User } from '../models/iuser';
 import { VideoGame } from '../models/ivideoGame';
 

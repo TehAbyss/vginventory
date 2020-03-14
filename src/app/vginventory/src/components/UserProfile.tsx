@@ -1,6 +1,5 @@
 import React from 'react';
 import {useUserProfile, UserProfileProps } from '../hooks/useUserProfile';
-import { ReactComponent } from '*.svg';
 import { VideoGame } from '../models/ivideoGame';
 import { User } from '../models/iuser';
 
