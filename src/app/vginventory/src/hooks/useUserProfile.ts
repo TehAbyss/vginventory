@@ -13,7 +13,11 @@ export function useUserProfile(props: UserProfileProps) {
 
     useEffect(() => {
         setUser(props.user);
-    }, [props.user.Bio]);
+    }, [props.user]);
+
+    useEffect(() => {
+        setVideoGames(props.videoGames);
+    }, [props.videoGames])
 
     return {
         user,

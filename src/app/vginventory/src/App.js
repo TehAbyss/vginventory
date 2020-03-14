@@ -10,7 +10,7 @@ function App() {
 
   return (
     <div className="App">
-      <UserProfile user={profileProps.user} />
+      <UserProfile {...profileProps} />
     </div>
   );
 }
