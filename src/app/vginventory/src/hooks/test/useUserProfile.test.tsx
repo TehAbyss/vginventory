@@ -13,7 +13,7 @@ describe('useUserProfile hook', () => {
     expect(result.current.videoGames.length).toBe(2);
   });
 
-  it('updates the user bio', () => {
+  /*it('updates the user bio', () => {
     const { result } = renderHook (() => useUserProfile(getUserProfileMock()));
     const expected = result.current.user.Bio.concat('And I enjoy RPGs!');
     act(() => {
@@ -31,5 +31,5 @@ describe('useUserProfile hook', () => {
     });
 
     expect(result.current.videoGames.length).toBe(3);
-  });
+  });*/
 });
