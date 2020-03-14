@@ -10,6 +10,7 @@ export interface UserProfileProps {
 export function useUserProfile(props: UserProfileProps) {
     const [user, setUser] = useState<User>(props.user);
     const [videoGames, setVideoGames] = useState<VideoGame[]>(props.videoGames);
+    const [userBio, setUserBio] = useState<string>(props.user.Bio);
 
     useEffect(() => {
         setUser(props.user);
@@ -19,10 +20,18 @@ export function useUserProfile(props: UserProfileProps) {
         setVideoGames(props.videoGames);
     }, [props.videoGames])
 
+    function addVideoGameToList(title: string) {
+        let vg = videoGames;
+        setVideoGames(vg.concat({title: title}));
+    };
+
     return {
         user,
         setUser,
         videoGames,
-        setVideoGames
+        setVideoGames,
+        userBio,
+        setUserBio,
+        addVideoGameToList
     };
 };
