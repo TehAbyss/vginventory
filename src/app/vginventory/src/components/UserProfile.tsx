@@ -30,12 +30,13 @@ const UserComponent = (user: User) => {
 }
 
 const VideoGamesComponent = (videoGames: VideoGame[]) => {
-  const videoGameList = videoGames.map(({title}) => <li key={title}>{title}</li>);
-
+  const videGameList = Object.entries(videoGames).map(([key, value]) => {
+    return <li key={value.title}>{value.title}</li>
+  })
   return (
     <div>
       <ul>
-        {videoGameList}
+        {videGameList}
       </ul>
     </div>
   )
