@@ -9,7 +9,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route path="/" exact component={Home} />
-      <Route path="/profile" exact component={UserProfile(profileProps)} />
+      <Route path="/profile" render={() => <UserProfile {...profileProps} />} />
     </Switch>
   );
 }
