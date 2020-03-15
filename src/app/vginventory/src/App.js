@@ -1,14 +1,15 @@
 import React from 'react';
-import { UserProfile } from './components/UserProfile';
-import { getUserProfileMock } from './models/mocks/mockUserProfile'
+import { NavBar } from './components/NavBar';
+import Routes from './Routes';
 
 function App() {
 
-  const profileProps = getUserProfileMock();
-
   return (
     <div>
-      <UserProfile {...profileProps} />
+      <header>
+        <NavBar />
+      </header>
+      <Routes />
     </div>
   );
 }
