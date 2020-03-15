@@ -20,3 +20,18 @@ export const getUserProfileMock = (): UserProfileProps => {
         }
     );
 };
+
+export const getEmptyVideoGameListMock = (): UserProfileProps => {
+    return (
+        {
+            user: {
+                Id: '1',
+                UserName: 'User1',
+                Bio: 'I love video games!',
+                MemberStartDate: Date.now()
+            },
+            videoGames: [
+            ]
+        }
+    );
+};

@@ -1,5 +1,5 @@
 import React from 'react';
-import {useUserProfile, UserProfileProps } from '../hooks/useUserProfile';
+import {useUserProfile, UserProfileProps, getMemberFullYear } from '../hooks/useUserProfile';
 import { VideoGame } from '../models/ivideoGame';
 import { User } from '../models/iuser';
 
@@ -21,7 +21,7 @@ const UserComponent = (user: User) => {
   return (
     <div>
       <p>{user.UserName}</p>
-      <p>Member Since:{user.MemberStartDate.toString()}</p>
+      <p>Member Since: {getMemberFullYear(user.MemberStartDate)}</p>
       <label>Bio:</label>
       <p>{user.Bio}</p>
     </div>
