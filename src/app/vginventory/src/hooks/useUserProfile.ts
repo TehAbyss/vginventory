@@ -7,6 +7,10 @@ export interface UserProfileProps {
     videoGames: VideoGame[];
 };
 
+export function getMemberFullYear(date: number) {
+    return new Date(date).getFullYear().toString();
+};
+
 export function useUserProfile(props: UserProfileProps) {
     const [user, setUser] = useState<User>(props.user);
     const [videoGames, setVideoGames] = useState<VideoGame[]>(props.videoGames);
