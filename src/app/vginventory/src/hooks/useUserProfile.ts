@@ -16,14 +16,6 @@ export function useUserProfile(props: UserProfileProps) {
     const [videoGames, setVideoGames] = useState<VideoGame[]>(props.videoGames);
     const [userBio, setUserBio] = useState<string>(props.user.Bio);
 
-    useEffect(() => {
-        setUser(props.user);
-    }, [props.user]);
-
-    useEffect(() => {
-        setVideoGames(props.videoGames);
-    }, [props.videoGames])
-
     function addVideoGameToList(title: string) {
         let vg = videoGames;
         setVideoGames(vg.concat({title: title}));
