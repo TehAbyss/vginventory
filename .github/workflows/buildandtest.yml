@@ -24,15 +24,24 @@ jobs:
 
     # Runs a front-end unit test
     - name: Run front-end install
-      run: npm install "./src/app/vginventory"
+      run: |
+        echo $PWD
+        cd "./src/app/vginventory"
+        npm install
   
     # Runs a front-end unit test
     - name: Run front-end build
-      run: npm run build --prefix "./src/app/vginventory"
+      run: |
+        echo $PWD
+        cd "./src/app/vginventory" 
+        npm run build
       
     # Runs a front-end unit test
     - name: Run front-end test
-      run: npm test a --prefix "./src/app/vginventory"
+      run: |
+        echo $PWD
+        cd "./src/app/vginventory"
+        npm test a
         
     # Runs back-end unit test
     - name: Setup .NET Core
