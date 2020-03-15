@@ -28,11 +28,11 @@ jobs:
   
     # Runs a front-end unit test
     - name: Run front-end build
-      run: npm build
+      run: npm run build --prefix "./src/app/vginventory"
       
     # Runs a front-end unit test
     - name: Run front-end test
-      run: npm test a   
+      run: npm test a --prefix "./src/app/vginventory"
         
     # Runs back-end unit test
     - name: Setup .NET Core
