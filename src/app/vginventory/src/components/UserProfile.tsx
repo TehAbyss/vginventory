@@ -10,10 +10,10 @@ export const UserProfile = (props: UserProfileProps) => {
     setVideoGames } = useUserProfile(props);
 
   return (
-    <div>
+    <>
       <UserComponent {...user} />
       <VideoGamesComponent {...videoGames} />
-    </div>
+    </>
   )
 }
 
@@ -33,10 +33,10 @@ const VideoGamesComponent = (videoGames: VideoGame[]) => {
     return <li key={value.title}>{value.title}</li>
   })
   return (
-    <div>
+    <>
       <ul>
         {videGameList}
       </ul>
-    </div>
+    </>
   )
 }
