@@ -22,28 +22,28 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - uses: actions/checkout@v2
 
-    # Runs a front-end unit test
+    # Front-end build
+    - name: Setup Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '12.16.1'
+
     - name: Run front-end install
       run: |
-        echo $PWD
         cd "./src/app/vginventory"
         npm install
-  
-    # Runs a front-end unit test
+
     - name: Run front-end build
       run: |
-        echo $PWD
         cd "./src/app/vginventory" 
         npm run build
       
-    # Runs a front-end unit test
-    #- name: Run front-end test
-    #  run: |
-    #    echo $PWD
-    #    cd "./src/app/vginventory"
-    #    npm test a
+    - name: Run front-end test
+      run: |
+        cd "./src/app/vginventory"
+        npm test -- --watchAll=false
         
-    # Runs back-end unit test
+    # Back-end build
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
