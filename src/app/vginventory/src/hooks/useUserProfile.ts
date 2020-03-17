@@ -1,14 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { user } from '../models/iuser';
 import { videoGame } from '../models/ivideoGame';
 
 export interface UserProfileProps {
     user: user;
     videoGames: videoGame[];
-};
-
-export function getMemberFullYear(date: number) {
-    return new Date(date).getFullYear().toString();
 };
 
 export function useUserProfile(props: UserProfileProps) {

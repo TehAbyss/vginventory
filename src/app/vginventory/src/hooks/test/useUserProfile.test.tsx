@@ -15,7 +15,7 @@ describe('useUserProfile hook', () => {
 
   it('updates the user bio', () => {
     const { result } = renderHook (() => useUserProfile(getUserProfileMock()));
-    let expected = result.current.user.Bio;
+    let expected = result.current.user.bio;
     expected = expected.concat('And I enjoy RPGs!');
     act(() => {
       result.current.setUserBio(expected);

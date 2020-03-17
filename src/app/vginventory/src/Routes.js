@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, BrowserRouter as Router } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { Home } from "./components/Home";
 import { UserProfile } from "./components/UserProfile";
 import { getUserProfileMock } from './models/mocks/mockUserProfile';
