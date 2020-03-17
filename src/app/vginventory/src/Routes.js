@@ -7,13 +7,11 @@ import { getUserProfileMock } from './models/mocks/mockUserProfile';
 export default function Routes() {
     const profileProps = getUserProfileMock();
   return (
-    <Router>
-      <div>
-        <Switch>
-          <Route path="/" exact component={Home} />
-          <Route path="/profile" render={() => <UserProfile {...profileProps} />} />
-        </Switch>
-      </div>
-    </Router>
+    <div>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/profile" render={() => <UserProfile {...profileProps} />} />
+      </Switch>
+    </div>
   );
 }

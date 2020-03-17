@@ -1,7 +1,7 @@
 import React from 'react';
 import {useUserProfile, UserProfileProps, getMemberFullYear } from '../hooks/useUserProfile';
-import { VideoGame } from '../models/ivideoGame';
-import { User } from '../models/iuser';
+import { videoGame } from '../models/ivideoGame';
+import { user } from '../models/iuser';
 
 export const UserProfile = (props: UserProfileProps) => {
   const { user,
@@ -17,18 +17,18 @@ export const UserProfile = (props: UserProfileProps) => {
   )
 }
 
-const UserComponent = (user: User) => {
+const UserComponent = (user: user) => {
   return (
     <div>
-      <p>{user.UserName}</p>
-      <p>Member Since: {getMemberFullYear(user.MemberStartDate)}</p>
+      <p>{user.name}</p>
+      <p>Member Since: {user.startDate.year}</p>
       <label>Bio:</label>
-      <p>{user.Bio}</p>
+      <p>{user.bio}</p>
     </div>
   )
 }
 
-const VideoGamesComponent = (videoGames: VideoGame[]) => {
+const VideoGamesComponent = (videoGames: videoGame[]) => {
   const videGameList = Object.entries(videoGames).map(([key, value]) => {
     return <li key={value.title}>{value.title}</li>
   })
