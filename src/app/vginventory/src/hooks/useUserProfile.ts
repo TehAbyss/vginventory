@@ -12,10 +12,10 @@ export function useUserProfile(props: UserProfileProps) {
     const [videoGames, setVideoGames] = useState<videoGame[]>(props.videoGames);
     const [userBio, setUserBio] = useState<string>(props.user.bio);
 
-    function addVideoGameToList(title: string) {
+    /*function addVideoGameToList(title: string) {
         let vg = videoGames;
         //setVideoGames(vg.concat({title: title}));
-    };
+    };*/
 
     return {
         user,
@@ -23,7 +23,6 @@ export function useUserProfile(props: UserProfileProps) {
         videoGames,
         setVideoGames,
         userBio,
-        setUserBio,
-        addVideoGameToList
+        setUserBio
     };
 };

@@ -24,7 +24,7 @@ describe('useUserProfile hook', () => {
     expect(result.current.userBio).toBe(expected);
   });
 
-  it('add a videogame to the current list of games', () => {
+  /*it('add a videogame to the current list of games', () => {
     const { result } = renderHook (() => useUserProfile(getUserProfileMock()));
     
     act(() => {
@@ -33,4 +33,5 @@ describe('useUserProfile hook', () => {
 
     expect(result.current.videoGames.length).toBe(3);
   });
+  */
 });
