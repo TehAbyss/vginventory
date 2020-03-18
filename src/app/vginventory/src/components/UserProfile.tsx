@@ -1,8 +1,8 @@
 import React from 'react';
 import {useUserProfile, UserProfileProps, VideoGameListProps, VideoGameProps } from '../hooks/useUserProfile';
-import { videoGame } from '../models/ivideoGame';
 import { user } from '../models/iuser';
-import { userVideoGame } from '../models/iuserVideoGame';
+import { BrowserRouter as Router, Switch, Route, Link, useParams } from 'react-router-dom';
+import { VideoGameProfile } from './VideoGameProfile';
 
 export const UserProfile = (props: UserProfileProps) => {
   const { user, videoGames } = useUserProfile(props);
@@ -18,7 +18,7 @@ export const UserProfile = (props: UserProfileProps) => {
 const UserComponent = (user: user) => {
   return (
     <div>
-      <p>{user.name}</p>
+      <h1>{user.name}</h1>
       <p>Member Since: {user.startDate.month} {user.startDate.year}</p>
       <label>Bio:</label>
       <p>{user.bio}</p>
@@ -34,19 +34,32 @@ const VideoGamesComponent = (videoGameList: VideoGameListProps) => {
     return <div key={value.videoGame.title}><VideoGame {...value} /></div>
   })
   return (
-    <div>
-      {videoGames}
-    </div>
+    <Router>
+      <div>
+        {videoGames}
+      </div>
+
+      <Switch>
+        <Route path="/:id" render={() => <GetGame />} />
+      </Switch>
+    </Router>
   )
 }
 
+const GetGame = () => {
+  let { id } = useParams();
+  return (
+    <p>{id}</p>
+  )
+};
+
 const VideoGame = (videoGame: VideoGameProps) => {
   return (
-    <div>
-      <p>{videoGame.videoGame.title}</p>
-      <p hidden={!videoGame.userVideoGame.own}>Own</p>
-      <p hidden={!videoGame.userVideoGame.completed}>Completed</p>
-      <p hidden={!videoGame.userVideoGame.wishlist}>Wishlist</p>
-    </div>
+      <div>
+        <h2><Link to={{pathname: `/${videoGame.videoGame.title}`}}>{videoGame.videoGame.title}</Link></h2>
+        <p hidden={!videoGame.userVideoGame.own}>Own</p>
+        <p hidden={!videoGame.userVideoGame.completed}>Completed</p>
+        <p hidden={!videoGame.userVideoGame.wishlist}>Wishlist</p>
+      </div>
   )
 };
