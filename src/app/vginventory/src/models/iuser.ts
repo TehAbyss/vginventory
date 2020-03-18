@@ -1,6 +1,10 @@
-export interface User {
-	Id: string;
-	UserName: string;
-	Bio: string;
-	MemberStartDate: number;	
+import { date } from "./idate";
+
+export interface user {
+	id: string;
+	name: string;
+	bio: string;
+	startDate: date;
+	avatarUrl: string;
+	email: string;
 };

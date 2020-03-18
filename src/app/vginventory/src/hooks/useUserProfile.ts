@@ -1,25 +1,21 @@
-import { useState, useEffect } from 'react';
-import { User } from '../models/iuser';
-import { VideoGame } from '../models/ivideoGame';
+import { useState } from 'react';
+import { user } from '../models/iuser';
+import { videoGame } from '../models/ivideoGame';
 
 export interface UserProfileProps {
-    user: User;
-    videoGames: VideoGame[];
-};
-
-export function getMemberFullYear(date: number) {
-    return new Date(date).getFullYear().toString();
+    user: user;
+    videoGames: videoGame[];
 };
 
 export function useUserProfile(props: UserProfileProps) {
-    const [user, setUser] = useState<User>(props.user);
-    const [videoGames, setVideoGames] = useState<VideoGame[]>(props.videoGames);
-    const [userBio, setUserBio] = useState<string>(props.user.Bio);
+    const [user, setUser] = useState<user>(props.user);
+    const [videoGames, setVideoGames] = useState<videoGame[]>(props.videoGames);
+    const [userBio, setUserBio] = useState<string>(props.user.bio);
 
-    function addVideoGameToList(title: string) {
+    /*function addVideoGameToList(title: string) {
         let vg = videoGames;
-        setVideoGames(vg.concat({title: title}));
-    };
+        //setVideoGames(vg.concat({title: title}));
+    };*/
 
     return {
         user,
@@ -27,7 +23,6 @@ export function useUserProfile(props: UserProfileProps) {
         videoGames,
         setVideoGames,
         userBio,
-        setUserBio,
-        addVideoGameToList
+        setUserBio
     };
 };
