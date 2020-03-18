@@ -5,12 +5,12 @@ import { getEmptyVideoGameListMock, getUserProfileMock } from '../../models/mock
 describe('useUserProfile hook', () => {
   it('takes in a user with an empty video game list', () => {
     const { result } = renderHook (() => useUserProfile(getEmptyVideoGameListMock()));
-    expect(result.current.videoGames.length).toBe(0);
+    expect(result.current.videoGames.videoGames.length).toBe(0);
   });
 
   it('takes in a user with a video game listof 2 video games', () => {
     const { result } = renderHook (() => useUserProfile(getUserProfileMock()));
-    expect(result.current.videoGames.length).toBe(2);
+    expect(result.current.videoGames.videoGames.length).toBe(2);
   });
 
   it('updates the user bio', () => {

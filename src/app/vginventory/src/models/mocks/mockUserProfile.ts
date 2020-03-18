@@ -21,7 +21,7 @@ export const getUserProfileMock = (): UserProfileProps => {
                 email: 'myemail@email.com'
             },
             videoGames: getVideoGameList(),
-            userVideoGame: getUserVideoGameMock()
+            userVideoGames: getUserVideoGameMock()
         }
     );
 };
@@ -86,7 +86,7 @@ export const getEmptyVideoGameListMock = (): UserProfileProps => {
                 email: 'myemail@email.com'
             },
             videoGames: [],
-            userVideoGame: []
+            userVideoGames: []
         }
     );
 };
