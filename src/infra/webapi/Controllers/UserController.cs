@@ -28,7 +28,7 @@ namespace VgInventory.Infra.WebApi.Controllers
         #region Create
 
         [HttpPost]
-        public ActionResult AddUser(User user) {
+        public ActionResult CreateUser(User user) {
             if (user != null && user.Email.IsValidEmail() && user.UserName.IsValidUserName())
             {
                 var emailLower = user.Email.ToLower();
@@ -95,14 +95,14 @@ namespace VgInventory.Infra.WebApi.Controllers
         #region Read
         
         [HttpGet]
-        public IEnumerable<User> GetUser()
+        public IEnumerable<User> ReadUser()
         {
             var entities = Users.ReadAsync();
             return entities.Result;
         }
 
         [HttpGet("{userName}")]
-        public IEnumerable<User> GetUser(string userName)
+        public IEnumerable<User> ReadUser(string userName)
         {
             if (userName.IsValidUserName())
             {

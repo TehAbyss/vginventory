@@ -27,12 +27,12 @@ namespace VgInventory.Infra.WebApi.Tests
         }
 
         [Fact]
-        public void AddUserAddsValidUserToDatabase()
+        public void CreateUserAddsValidUserToDatabase()
         {
             var newUser = CreateUser();
-            Controller.AddUser(newUser);
+            Controller.CreateUser(newUser);
 
-            var entities = Controller.GetUser(newUser.UserName);
+            var entities = Controller.ReadUser(newUser.UserName);
             Assert.True(entities.Count() > 0, "Failed to add user to database.");
             Assert.True(entities.Count() == 1, "Found multiple users with the same user name.");
 
@@ -47,7 +47,7 @@ namespace VgInventory.Infra.WebApi.Tests
         }
 
         [Fact]
-        public void AddUserWithInvalidEmailShouldNotAddUserToDatabase()
+        public void CreateUserWithInvalidEmailShouldNotAddUserToDatabase()
         {
             var invalidEmails = new string[] {
                 null,
@@ -64,15 +64,15 @@ namespace VgInventory.Infra.WebApi.Tests
             foreach(string invalidEmail in invalidEmails) {
                 var newUser = CreateUser();
                 newUser.Email = invalidEmail;
-                Controller.AddUser(newUser);
+                Controller.CreateUser(newUser);
 
-                var entities = Controller.GetUser(newUser.UserName);
+                var entities = Controller.ReadUser(newUser.UserName);
                 Assert.True(entities.Count() == 0, $"User with invalid email `{invalidEmail}` should not be added to database.");
             }
         }
 
         [Fact]
-        public void AddUserWithInvalidUserNameShouldNotAddUserToDatabase()
+        public void CreateUserWithInvalidUserNameShouldNotAddUserToDatabase()
         {
             var InvalidUserNames = new string[] {
                 null,
@@ -95,28 +95,28 @@ namespace VgInventory.Infra.WebApi.Tests
             foreach(string invalidUserName in InvalidUserNames) {
                 var newUser = CreateUser();
                 newUser.UserName = invalidUserName;
-                Controller.AddUser(newUser);
+                Controller.CreateUser(newUser);
 
-                var entities = Controller.GetUser(newUser.UserName);
+                var entities = Controller.ReadUser(newUser.UserName);
                 Assert.True(entities.Count() == 0, $"User with invalid user name `{invalidUserName}` should not be added to database.");
             }
         }
 
         [Fact]
-        public void GetUserReturnsEmptyListWhenUserNameNotFound()
+        public void ReadUserReturnsEmptyListWhenUserNameNotFound()
         {
-            var entities = Controller.GetUser("someNonExistingUserName");
+            var entities = Controller.ReadUser("someNonExistingUserName");
             Assert.True(entities.Count() == 0, "Query should return an empty list.");
         }
 
         [Fact]
-        public void GetUserReturnsListWithOneEntityWhenUserNameFound()
+        public void ReadUserReturnsListWithOneEntityWhenUserNameFound()
         {
-            var allEntities = Controller.GetUser();
+            var allEntities = Controller.ReadUser();
             Assert.True(allEntities.Count() > 0);
 
             var userNameToQuery = allEntities.First().UserName;
-            var entities = Controller.GetUser(userNameToQuery);
+            var entities = Controller.ReadUser(userNameToQuery);
             Assert.True(entities.Count() == 1, "Query should only return 1 user");
         }
 
@@ -132,7 +132,7 @@ namespace VgInventory.Infra.WebApi.Tests
 
             Controller.UpdateUser(userToUpdate);
 
-            var entities = Controller.GetUser();
+            var entities = Controller.ReadUser();
             var foundUser = entities.ToList().Find((u) => u.Bio.Contains(mockData) || u.AvatarUrl.Contains(mockData));
             Assert.True(foundUser == null, "Non-existing user should not modify database");
         }
@@ -142,13 +142,13 @@ namespace VgInventory.Infra.WebApi.Tests
         {
             var mockData = "<<mock>>";
 
-            var userToUpdate = Controller.GetUser().First();
+            var userToUpdate = Controller.ReadUser().First();
             userToUpdate.Bio = mockData;
             userToUpdate.AvatarUrl = mockData;
 
             Controller.UpdateUser(userToUpdate);
 
-            var entities = Controller.GetUser(userToUpdate.UserName);
+            var entities = Controller.ReadUser(userToUpdate.UserName);
             var userFound = entities.First();
             Assert.True(userToUpdate.Bio.Equals(userFound.Bio), "User Bio in database should match updated user.");
             Assert.True(userToUpdate.AvatarUrl.Equals(userFound.AvatarUrl), "User AvatarUrl in database should match updated user.");
@@ -157,15 +157,15 @@ namespace VgInventory.Infra.WebApi.Tests
         [Fact]
         public void DeleteUserDeletesValidUserFromDatabase()
         {
-            var allUsersCount = Controller.GetUser().Count();
+            var allUsersCount = Controller.ReadUser().Count();
 
-            var userToDelete = Controller.GetUser().First();
+            var userToDelete = Controller.ReadUser().First();
             Controller.DeleteUser(userToDelete);
 
-            var currentUsers = Controller.GetUser();
+            var currentUsers = Controller.ReadUser();
             var currentUsersCount = currentUsers.Count();
 
-            var entities = Controller.GetUser(userToDelete.UserName);
+            var entities = Controller.ReadUser(userToDelete.UserName);
             Assert.True(entities.Count() == 0, "Failed to delete user from database");
             Assert.True((allUsersCount - 1) == currentUsersCount,
                 $"Failed to remove only one user. Before {allUsersCount}. After {currentUsersCount}."); 
@@ -174,10 +174,10 @@ namespace VgInventory.Infra.WebApi.Tests
         [Fact]
         public void DeleteUserShouldNotModifyDatabaseWithInvalidUser()
         {
-            var allUsers = Controller.GetUser();
+            var allUsers = Controller.ReadUser();
             var invalidUser = CreateUser();
             Controller.DeleteUser(invalidUser);
-            var currentUsers = Controller.GetUser();
+            var currentUsers = Controller.ReadUser();
             Assert.True(allUsers.Count() == currentUsers.Count(), "Invalid user should not modify database"); 
         }
 
