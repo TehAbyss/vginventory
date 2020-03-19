@@ -8,10 +8,24 @@ export const UserProfile = (props: UserProfileProps) => {
   const { user, videoGames } = useUserProfile(props);
 
   return (
-    <>
-      <UserComponent {...user} />
-      <VideoGamesComponent {...videoGames} />
-    </>
+    <Router>
+      <Switch>
+        <Route path="/profile">
+          <UserComponent {...user} />
+          <VideoGamesComponent {...videoGames} />
+        </Route>
+        <Route path="/:id" render={() => <GetVideoGame {...videoGames} />} />
+      </Switch>
+    </Router>
+  )
+}
+
+const GetVideoGame = (videoGames: VideoGameListProps) => {
+  let { id } = useParams();
+  const videoGame = videoGames.videoGames.find((vg) => vg.title === id) || {id: '', title: '', genre: [], description: '', releaseDate: {month:'', year:'', date: '', epoch: 0}};
+  
+  return (
+    <VideoGameProfile {...videoGame} />
   )
 }
 
@@ -34,24 +48,11 @@ const VideoGamesComponent = (videoGameList: VideoGameListProps) => {
     return <div key={value.videoGame.title}><VideoGame {...value} /></div>
   })
   return (
-    <Router>
-      <div>
-        {videoGames}
-      </div>
-
-      <Switch>
-        <Route path="/:id" render={() => <GetGame />} />
-      </Switch>
-    </Router>
+    <div>
+      {videoGames}
+    </div>
   )
 }
-
-const GetGame = () => {
-  let { id } = useParams();
-  return (
-    <p>{id}</p>
-  )
-};
 
 const VideoGame = (videoGame: VideoGameProps) => {
   return (
