@@ -11,7 +11,7 @@ describe('UserProfile component', () => {
   });
 
   it('contains the game overwatch in the list', () => {
-    const { getByText, } = render(<UserProfile {...getUserProfileMock()} />);
+    const { getByText } = render(<UserProfile {...getUserProfileMock()} />);
     const linkElement = getByText('Overwatch');
     expect(linkElement).toBeInTheDocument();
   });

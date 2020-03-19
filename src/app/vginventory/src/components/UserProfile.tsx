@@ -8,20 +8,22 @@ export const UserProfile = (props: UserProfileProps) => {
   const { user, videoGames } = useUserProfile(props);
 
   return (
-    <Router>
-      <Switch>
-        <Route path="/profile">
-          <UserComponent {...user} />
-          <VideoGamesComponent {...videoGames} />
-        </Route>
-        <Route path="/:id" render={() => <GetVideoGame {...videoGames} />} />
-      </Switch>
-    </Router>
+    <>
+      <Router>
+        <Switch>
+          <Route path="/user/:id">
+            <UserComponent {...user} />
+            <VideoGamesComponent {...videoGames} />
+          </Route>
+          <Route path="/videogame/:id" exact component={() => <GetVideoGame {...videoGames} />} />
+        </Switch>
+      </Router>
+    </>
   )
 }
 
 const GetVideoGame = (videoGames: VideoGameListProps) => {
-  let { id } = useParams();
+  const { id } = useParams();
   const videoGame = videoGames.videoGames.find((vg) => vg.title === id) || {id: '', title: '', genre: [], description: '', releaseDate: {month:'', year:'', date: '', epoch: 0}};
   
   return (
@@ -56,11 +58,11 @@ const VideoGamesComponent = (videoGameList: VideoGameListProps) => {
 
 const VideoGame = (videoGame: VideoGameProps) => {
   return (
-      <div>
-        <h2><Link to={{pathname: `/${videoGame.videoGame.title}`}}>{videoGame.videoGame.title}</Link></h2>
-        <p hidden={!videoGame.userVideoGame.own}>Own</p>
-        <p hidden={!videoGame.userVideoGame.completed}>Completed</p>
-        <p hidden={!videoGame.userVideoGame.wishlist}>Wishlist</p>
-      </div>
+    <>
+      <h2><Link to={`/videogame/${videoGame.videoGame.title}`}>{videoGame.videoGame.title}</Link></h2>
+      <p hidden={!videoGame.userVideoGame.own}>Own</p>
+      <p hidden={!videoGame.userVideoGame.completed}>Completed</p>
+      <p hidden={!videoGame.userVideoGame.wishlist}>Wishlist</p>
+    </>
   )
 };
