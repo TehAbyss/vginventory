@@ -4,7 +4,6 @@ import { userVideoGame } from './iuserVideoGame';
 
 export interface UserProfileProps {
     user: user;
-    videoGames: videoGame[];
     userVideoGames: userVideoGame[];
 };
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getUserProfileMock } from '../models/mocks/mockUserProfile';
+import { getUserProfileMock } from '../models/mocks/mockData';
 import { userVideoGame } from '../models/iuserVideoGame';
 
 export function useUserVideoGames() {

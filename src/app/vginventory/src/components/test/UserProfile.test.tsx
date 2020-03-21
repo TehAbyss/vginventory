@@ -1,7 +1,7 @@
 import React from 'react';
 import { render } from '@testing-library/react';
 import { UserProfile } from '../UserProfile';
-import { getUserProfileMock } from '../../models/mocks/mockUserProfile';
+import { getUserProfileMock } from '../../models/mocks/mockData';
 
 describe('UserProfile component', () => {
   it('contains a username', () => {

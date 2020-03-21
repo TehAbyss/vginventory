@@ -1,4 +1,4 @@
-import { UserProfileProps } from "../../models/iprops";
+import { UserProfileProps } from "../iprops";
 import { getMonthName } from "../idate";
 import { videoGame } from "../ivideoGame";
 import { userVideoGame } from "../iuserVideoGame";
@@ -20,13 +20,12 @@ export const getUserProfileMock = (): UserProfileProps => {
                 avatarUrl: 'http://img.url.com',
                 email: 'myemail@email.com'
             },
-            videoGames: getVideoGameList(),
             userVideoGames: getUserVideoGameMock()
         }
     );
 };
 
-const getVideoGameList = (): videoGame[] => {
+export const getVideoGameList = (): videoGame[] => {
     const owrelease = new Date('May 24, 2016');
     const pwrelease = new Date('October 12, 2001');
     return (
@@ -85,13 +84,12 @@ export const getEmptyVideoGameListMock = (): UserProfileProps => {
                 avatarUrl: 'http://img.url.com',
                 email: 'myemail@email.com'
             },
-            videoGames: [],
             userVideoGames: []
         }
     );
 };
 
-export const getUserVideoGameMock = (): userVideoGame[] => {
+const getUserVideoGameMock = (): userVideoGame[] => {
     return (
         [
             {
