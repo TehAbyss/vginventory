@@ -1,7 +1,11 @@
 import React from 'react';
-import { videoGame } from "../models/ivideoGame";
+import { useVideoGame } from "../hooks/useVideoGame";
+import { useParams } from "react-router-dom";
 
-export const VideoGameProfile = (videoGame: videoGame) => {
+export const VideoGameProfile = () => {
+    let { title } = useParams();
+    const { videoGame } = useVideoGame(title || '');
+
     return (
         <div>
             <h1>{videoGame.title}</h1>

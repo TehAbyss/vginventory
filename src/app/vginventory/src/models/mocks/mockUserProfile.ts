@@ -1,4 +1,4 @@
-import { UserProfileProps } from "../../hooks/useUserProfile";
+import { UserProfileProps } from "../../models/iprops";
 import { getMonthName } from "../idate";
 import { videoGame } from "../ivideoGame";
 import { userVideoGame } from "../iuserVideoGame";

@@ -1,34 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { user } from '../models/iuser';
-import { videoGame } from '../models/ivideoGame';
-import { userVideoGame } from '../models/iuserVideoGame';
+import { getUserProfileMock } from '../models/mocks/mockUserProfile';
 
-export interface UserProfileProps {
-    user: user;
-    videoGames: videoGame[];
-    userVideoGames: userVideoGame[];
-};
+export function useUserProfile() {
+    const [user, setUser] = useState<user>(getUserProfileMock().user);
+    const [userBio, setUserBio] = useState<string>(user.bio);
 
-export interface VideoGameListProps {
-    videoGames: videoGame[];
-    userVideoGames: userVideoGame[];
-};
-
-export interface VideoGameProps {
-    videoGame: videoGame;
-    userVideoGame: userVideoGame;
-}
-
-export function useUserProfile(props: UserProfileProps) {
-    const [user, setUser] = useState<user>(props.user);
-    const [videoGames, setVideoGames] = useState<VideoGameListProps>({videoGames: props.videoGames, userVideoGames: props.userVideoGames});
-    const [userBio, setUserBio] = useState<string>(props.user.bio);
+    //useEffect(() => {
+        //TODO: this useEffect should call the users api and get a user by id
+    //    setUser(getUserProfileMock().user);
+    //},[user]);
 
     return {
         user,
         setUser,
-        videoGames,
-        setVideoGames,
         userBio,
         setUserBio
     };

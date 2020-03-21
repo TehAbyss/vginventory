@@ -1,37 +1,24 @@
 import React from 'react';
-import {useUserProfile, UserProfileProps, VideoGameListProps, VideoGameProps } from '../hooks/useUserProfile';
-import { user } from '../models/iuser';
-import { BrowserRouter as Router, Switch, Route, Link, useParams } from 'react-router-dom';
+import {useUserProfile } from '../hooks/useUserProfile';
+import { Route, Link, useParams, Switch } from 'react-router-dom';
 import { VideoGameProfile } from './VideoGameProfile';
+import { useVideoGame } from '../hooks/useVideoGame';
+import { useVideoGames } from '../hooks/useVideoGames';
 
-export const UserProfile = (props: UserProfileProps) => {
-  const { user, videoGames } = useUserProfile(props);
-
+export const UserProfile = () => {
   return (
     <>
-      <Router>
-        <Switch>
-          <Route path="/user/:id">
-            <UserComponent {...user} />
-            <VideoGamesComponent {...videoGames} />
-          </Route>
-          <Route path="/videogame/:id" exact component={() => <GetVideoGame {...videoGames} />} />
-        </Switch>
-      </Router>
+      <UserComponent />
+      <VideoGamesComponent />
     </>
   )
 }
 
-const GetVideoGame = (videoGames: VideoGameListProps) => {
+const UserComponent = () => {
+  //TODO: use the id to pass it to the hooks
   const { id } = useParams();
-  const videoGame = videoGames.videoGames.find((vg) => vg.title === id) || {id: '', title: '', genre: [], description: '', releaseDate: {month:'', year:'', date: '', epoch: 0}};
-  
-  return (
-    <VideoGameProfile {...videoGame} />
-  )
-}
+  const { user } = useUserProfile();
 
-const UserComponent = (user: user) => {
   return (
     <div>
       <h1>{user.name}</h1>
@@ -42,27 +29,30 @@ const UserComponent = (user: user) => {
   )
 }
 
-const VideoGamesComponent = (videoGameList: VideoGameListProps) => {
-  const videoGames = Object.entries(videoGameList.videoGames).map(([vgkey, vgvalue]) => {
-    const userVideoGame = videoGameList.userVideoGames.find((uvg) => uvg.videoGameId === vgvalue.id) ||
-      {userId: '', videoGameId: '', completed: false, own: false, wishlist: false};
-    const value: VideoGameProps = {videoGame: vgvalue, userVideoGame: userVideoGame};
-    return <div key={value.videoGame.title}><VideoGame {...value} /></div>
+const VideoGamesComponent = () => {
+    //TODO: use the id to pass it to the hooks
+    const { id } = useParams();
+    const { videoGames } = useVideoGames();
+
+  const videoGameList = Object.entries(videoGames).map(([vgkey, vgvalue]) => {
+    return <div key={vgvalue.title}><VideoGame id={vgvalue.title} /></div>
   })
   return (
     <div>
-      {videoGames}
+      {videoGameList}
     </div>
   )
 }
 
-const VideoGame = (videoGame: VideoGameProps) => {
+const VideoGame = (props: any) => {
+  const { videoGame } = useVideoGame(props.id);
+  //const { userVideoGames } = useUserVideoGames();
+  //<p hidden={!videoGame.userVideoGame.own}>Own</p>
+  //<p hidden={!videoGame.userVideoGame.completed}>Completed</p>
+  //<p hidden={!videoGame.userVideoGame.wishlist}>Wishlist</p>
   return (
-    <>
-      <h2><Link to={`/videogame/${videoGame.videoGame.title}`}>{videoGame.videoGame.title}</Link></h2>
-      <p hidden={!videoGame.userVideoGame.own}>Own</p>
-      <p hidden={!videoGame.userVideoGame.completed}>Completed</p>
-      <p hidden={!videoGame.userVideoGame.wishlist}>Wishlist</p>
-    </>
+    <div>
+      <h2><Link to={`/videogames/${videoGame.title}`}>{videoGame.title}</Link></h2>
+    </div>
   )
 };
