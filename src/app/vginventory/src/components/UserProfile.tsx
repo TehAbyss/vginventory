@@ -5,19 +5,21 @@ import { VideoGameProfile } from './VideoGameProfile';
 import { useVideoGame } from '../hooks/useVideoGame';
 import { useVideoGames } from '../hooks/useVideoGames';
 
-export const UserProfile = () => {
+export const UserProfile = (props:any) => {
+  console.log(props)
   return (
     <>
-      <UserComponent />
-      <VideoGamesComponent />
+      <UserComponent user={props.profile.user} />
+      <VideoGamesComponent videoGames={props.profile.videoGames}/>
     </>
   )
 }
 
-const UserComponent = () => {
+const UserComponent = (props:any) => {
+  console.log(props);
   //TODO: use the id to pass it to the hooks
   const { id } = useParams();
-  const { user } = useUserProfile();
+  const { user } = useUserProfile(props.user);
 
   return (
     <div>
@@ -29,7 +31,7 @@ const UserComponent = () => {
   )
 }
 
-const VideoGamesComponent = () => {
+const VideoGamesComponent = (props:any) => {
     //TODO: use the id to pass it to the hooks
     const { id } = useParams();
     const { videoGames } = useVideoGames();
