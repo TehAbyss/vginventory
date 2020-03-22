@@ -13,7 +13,10 @@ export const NavBar = () => {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className='mr-auto'>
-              <LinkContainer to="/users/:id">
+            <LinkContainer to="/members">
+                <Nav.Link>Members</Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/users">
                 <Nav.Link>Profile</Nav.Link>
               </LinkContainer>
               <LinkContainer to="/videogames">
