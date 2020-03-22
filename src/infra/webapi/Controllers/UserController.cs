@@ -76,9 +76,8 @@ namespace VgInventory.Infra.WebApi.Controllers
                             Email = user.Email,
                             UserName = user.UserName,
                             StartDate = startDate,
-                            StartDateUnix = startDateUnix,
-                            Bio = string.Empty,
-                            AvatarUrl = string.Empty
+                            Bio = user.Bio,
+                            AvatarUrl = user.AvatarUrl
                         };
 
                     Users.CreateAsync(newUser);

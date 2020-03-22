@@ -41,7 +41,6 @@ namespace VgInventory.Infra.WebApi.Tests
             Assert.True(foundUser.Email.Equals(newUser.Email), $"User email from database does not match added user. {foundUser.Email}, {newUser.Email}");
             Assert.True(foundUser.UserName.Equals(newUser.UserName), $"User name from database does not match added user. {foundUser.UserName}, {newUser.UserName}");
             Assert.True(foundUser.StartDate != newUser.StartDate, "StartDate should have been assigned by data connector.");
-            Assert.True(foundUser.StartDateUnix != newUser.StartDateUnix, "StartDateUnix should have been assigned by data connector.");
             Assert.True(foundUser.Bio.Length == 0, "Bio should be empty");
             Assert.True(foundUser.AvatarUrl.Length == 0, "AvatarUrl should be empty");
         }
@@ -197,7 +196,6 @@ namespace VgInventory.Infra.WebApi.Tests
                     Email = "anyUser" + guid.Substring(0,6) + "@email.com",
                     UserName = "anyUser" + guid.Substring(0,6),
                     StartDate = default(DateTime),
-                    StartDateUnix = 0,
                     Bio = string.Empty,
                     AvatarUrl = string.Empty
                 };
