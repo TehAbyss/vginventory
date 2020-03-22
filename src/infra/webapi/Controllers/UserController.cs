@@ -69,7 +69,6 @@ namespace VgInventory.Infra.WebApi.Controllers
                     }
 
                     var startDate = DateTime.Now;
-                    var startDateUnix = startDate.ToUnixTime();
                     var newUser = new User
                         {
                             Id = id,
