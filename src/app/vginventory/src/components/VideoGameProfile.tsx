@@ -5,11 +5,13 @@ import { useVideoGames } from '../hooks/useVideoGames';
 
 export const VideoGameProfile = (props: any) => {
     let { title } = useParams();
-    const { getVideoGame } = useVideoGames(props.games);
-    const { videoGame } = useVideoGame(getVideoGame(title || ''));
+    const { videoGame } = useVideoGame(title || '');
+    console.log(videoGame);
+    if (!videoGame) return null;
 
     return (
         <div>
+
             <h1>{videoGame.title}</h1>
             <p>{videoGame.description}</p>
         </div>
