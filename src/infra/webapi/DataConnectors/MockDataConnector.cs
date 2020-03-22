@@ -120,9 +120,10 @@ namespace VgInventory.Infra.WebApi.DataConnectors
             if (typeof(TEntity) == typeof(User))
             {
                 var item = (User)Convert.ChangeType(entity, typeof(User));
-                if (UserTable.Contains(item))
+                var userToUpdate = UserTable.Find((u) => u.Id.Equals(item.Id));
+                if (userToUpdate != null)
                 {
-                    int i = UserTable.IndexOf(item);
+                    int i = UserTable.IndexOf(userToUpdate);
                     UserTable[i].Bio = item.Bio;
                     UserTable[i].AvatarUrl = item.AvatarUrl;
                     return Task.CompletedTask;
@@ -131,9 +132,10 @@ namespace VgInventory.Infra.WebApi.DataConnectors
             else if (typeof(TEntity) == typeof(UserCredential))
             {
                 var item = (UserCredential)Convert.ChangeType(entity, typeof(UserCredential));
-                if (UserCredentialTable.Contains(item))
+                var userCredentialToUpdate = UserCredentialTable.Find((u) => u.Id.Equals(item.Id));
+                if (userCredentialToUpdate != null)
                 {
-                    int i = UserCredentialTable.IndexOf(item);
+                    int i = UserCredentialTable.IndexOf(userCredentialToUpdate);
                     UserCredentialTable[i].Password = item.Password;
                     return Task.CompletedTask;
                 }
