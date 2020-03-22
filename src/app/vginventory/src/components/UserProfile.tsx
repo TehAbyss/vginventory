@@ -1,24 +1,25 @@
 import React from 'react';
 import {useUserProfile } from '../hooks/useUserProfile';
-import { Route, Link, useParams, Switch } from 'react-router-dom';
-import { VideoGameProfile } from './VideoGameProfile';
-import { useVideoGame } from '../hooks/useVideoGame';
+import { Link } from 'react-router-dom';
 import { useVideoGames } from '../hooks/useVideoGames';
+import { VideoGameListProps } from '../models/iprops';
+import { userVideoGame } from '../models/iuserVideoGame';
 
 export const UserProfile = (props:any) => {
   console.log(props)
+  const videoGameProps: VideoGameListProps = {
+    videoGames: props.videoGames,
+    userVideoGames: props.profile.userVideoGames
+  }
   return (
     <>
       <UserComponent user={props.profile.user} />
-      <VideoGamesComponent videoGames={props.profile.videoGames}/>
+      <VideoGamesComponent list={videoGameProps} />
     </>
   )
 }
 
 const UserComponent = (props:any) => {
-  console.log(props);
-  //TODO: use the id to pass it to the hooks
-  const { id } = useParams();
   const { user } = useUserProfile(props.user);
 
   return (
@@ -32,12 +33,11 @@ const UserComponent = (props:any) => {
 }
 
 const VideoGamesComponent = (props:any) => {
-    //TODO: use the id to pass it to the hooks
-    const { id } = useParams();
-    const { videoGames } = useVideoGames();
+  const { videoGames } = useVideoGames(props.list.videoGames);
 
   const videoGameList = Object.entries(videoGames).map(([vgkey, vgvalue]) => {
-    return <div key={vgvalue.title}><VideoGame id={vgvalue.title} /></div>
+    const userGame = props.list.userVideoGames.find((uvg: userVideoGame) => uvg.videoGameId === vgvalue.id) || '';
+    return <div key={vgvalue.title}><VideoGame game={vgvalue} userGame={userGame} /></div>
   })
   return (
     <div>
@@ -47,14 +47,14 @@ const VideoGamesComponent = (props:any) => {
 }
 
 const VideoGame = (props: any) => {
-  const { videoGame } = useVideoGame(props.id);
+  //const { videoGame } = useVideoGame(props.game);
   //const { userVideoGames } = useUserVideoGames();
-  //<p hidden={!videoGame.userVideoGame.own}>Own</p>
-  //<p hidden={!videoGame.userVideoGame.completed}>Completed</p>
-  //<p hidden={!videoGame.userVideoGame.wishlist}>Wishlist</p>
   return (
     <div>
-      <h2><Link to={`/videogames/${videoGame.title}`}>{videoGame.title}</Link></h2>
+      <h2><Link to={`/videogames/${props.game.title}`}>{props.game.title}</Link></h2>
+      <p hidden={!props.userGame.own}>Own</p>
+      <p hidden={!props.userGame.completed}>Completed</p>
+      <p hidden={!props.userGame.wishlist}>Wishlist</p>
     </div>
   )
 };

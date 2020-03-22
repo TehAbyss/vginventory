@@ -17,6 +17,11 @@ export const NavBar = () => {
                 <NavItem>Profile</NavItem>
               </LinkContainer>
             </Nav>
+            <Nav className='mr-auto'>
+              <LinkContainer to="/videogames">
+                <NavItem>Video Games</NavItem>
+              </LinkContainer>
+            </Nav>
           </Navbar.Collapse>
         </Navbar>
       </div>
