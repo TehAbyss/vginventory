@@ -76,7 +76,6 @@ namespace VgInventory.Infra.WebApi.Controllers
                             Email = user.Email,
                             UserName = user.UserName,
                             StartDate = startDate,
-                            StartDateUnix = startDateUnix,
                             Bio = string.Empty,
                             AvatarUrl = string.Empty
                         };
