@@ -37,6 +37,7 @@ const MembersComponent = (props: any) => {
               <tr>
                 <th>Name</th>
                 <th>Bio</th>
+                <th>&nbsp;</th>
               </tr>
             </thead>
             <tbody>
@@ -44,7 +45,8 @@ const MembersComponent = (props: any) => {
                 user.map((u: any) => (
                   <tr key={u.userName}>
                     <td>{u.userName}</td>
-                    <td>{u.bio}<br /><button onClick={() => { deleteUser(u) }}>Delete</button></td>
+                    <td>{u.bio}</td>
+                    <td><button onClick={() => { deleteUser(u) }}>Remove</button></td>
                   </tr>
                 ))
               }
