@@ -1,50 +1,60 @@
 import React from 'react';
-import {useUserProfile, UserProfileProps } from '../hooks/useUserProfile';
-import { videoGame } from '../models/ivideoGame';
-import { user } from '../models/iuser';
+import {useUserProfile } from '../hooks/useUserProfile';
+import { Link } from 'react-router-dom';
+import { useVideoGames } from '../hooks/useVideoGames';
+import { VideoGameListProps } from '../models/iprops';
+import { userVideoGame } from '../models/iuserVideoGame';
 
-export const UserProfile = (props: UserProfileProps) => {
-  const { user,
-    setUser,
-    videoGames,
-    setVideoGames } = useUserProfile(props);
-
+export const UserProfile = (props:any) => {
+  console.log(props)
+  const videoGameProps: VideoGameListProps = {
+    videoGames: props.videoGames,
+    userVideoGames: props.profile.userVideoGames
+  }
   return (
     <>
-      <UserComponent {...user} />
-      <VideoGamesComponent {...videoGames} />
+      <UserComponent user={props.profile.user} />
+      <VideoGamesComponent list={videoGameProps} />
     </>
   )
 }
 
-const UserComponent = (user: user) => {
+const UserComponent = (props:any) => {
+  const { user } = useUserProfile(props.user);
+
   return (
     <div>
-      <p>{user.name}</p>
-      <p>Member Since: {user.startDate.year}</p>
+      <h1>{user.name}</h1>
+      <p>Member Since: {user.startDate.month} {user.startDate.year}</p>
       <label>Bio:</label>
       <p>{user.bio}</p>
     </div>
   )
 }
 
-const VideoGamesComponent = (videoGames: videoGame[]) => {
-  const videGameList = Object.entries(videoGames).map(([key, value]) => {
-    return <div key={value.title}><VideoGame {...value} /></div>
+const VideoGamesComponent = (props:any) => {
+  const { videoGames } = useVideoGames(props.list.videoGames);
+
+  const videoGameList = Object.entries(videoGames).map(([vgkey, vgvalue]) => {
+    const userGame = props.list.userVideoGames.find((uvg: userVideoGame) => uvg.videoGameId === vgvalue.id) || '';
+    return <div key={vgvalue.title}><VideoGame game={vgvalue} userGame={userGame} /></div>
   })
   return (
     <div>
-      {videGameList}
+      {videoGameList}
     </div>
   )
 }
 
-const VideoGame = (videoGame: videoGame) => {
+const VideoGame = (props: any) => {
+  //const { videoGame } = useVideoGame(props.game);
+  //const { userVideoGames } = useUserVideoGames();
   return (
     <div>
-      <p>{videoGame.title}</p>
-      <p>Release Date: {videoGame.releaseDate.year}</p>
-      <p>{videoGame.description}</p>
+      <h2><Link to={`/videogames/${props.game.title}`}>{props.game.title}</Link></h2>
+      <p hidden={!props.userGame.own}>Own</p>
+      <p hidden={!props.userGame.completed}>Completed</p>
+      <p hidden={!props.userGame.wishlist}>Wishlist</p>
     </div>
   )
 };
