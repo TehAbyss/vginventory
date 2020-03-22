@@ -6,20 +6,18 @@ import { LinkContainer } from "react-router-bootstrap";
 export const NavBar = () => {
     return (
      <div className='App tc f3'>
-        <Navbar bg='light' expand='lg'>
-            <Navbar.Brand>
-                <Link to="/">VGinventory</Link>
-            </Navbar.Brand>
+        <Navbar bg='dark' variant='dark' expand='lg'>
+            <LinkContainer to="/">
+              <Navbar.Brand>VGinventory</Navbar.Brand>
+            </LinkContainer>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className='mr-auto'>
               <LinkContainer to="/users/:id">
-                <NavItem>Profile</NavItem>
+                <Nav.Link>Profile</Nav.Link>
               </LinkContainer>
-            </Nav>
-            <Nav className='mr-auto'>
               <LinkContainer to="/videogames">
-                <NavItem>Video Games</NavItem>
+                <Nav.Link>Video Games</Nav.Link>
               </LinkContainer>
             </Nav>
           </Navbar.Collapse>
