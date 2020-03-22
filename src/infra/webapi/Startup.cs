@@ -34,6 +34,20 @@ namespace VgInventory.Infra.WebApi
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+
+                // Allow CORS during development testing so that
+                // locally run frontend can access locally run backend
+                var allowedOrigins = Configuration["AppSettings:AllowedOrigins"];
+                if (!String.IsNullOrEmpty(allowedOrigins))
+                {
+                    Console.WriteLine(allowedOrigins);
+                    var origins = allowedOrigins.Split(";");
+                    app.UseCors(x => x
+                                .WithOrigins(origins)
+                                .AllowAnyMethod()
+                                .AllowCredentials()
+                                .AllowAnyHeader());
+                }
             }
 
             app.UseHttpsRedirection();
