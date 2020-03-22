@@ -88,16 +88,16 @@ namespace VgInventory.Infra.WebApi.Controllers
         }
 
         [HttpGet("{title}")]
-        public IEnumerable<VideoGame> ReadVideoGame(string title)
+        public VideoGame ReadVideoGame(string title)
         {
             if (!string.IsNullOrEmpty(title))
             {
                 var titleToLower = title.ToLower();
                 var entities = VideoGames.ReadAsync((entity) => entity.Title.ToLower().Equals(titleToLower)); 
-                return entities.Result;
+                return entities.Result.First();
             }
 
-            return new List<VideoGame>();
+            return new VideoGame();
         }
 
         #endregion Read
