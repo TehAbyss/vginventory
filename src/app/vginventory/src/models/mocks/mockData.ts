@@ -95,16 +95,16 @@ const getUserVideoGameMock = (): userVideoGame[] => {
             {
                 userId: '1',
                 videoGameId: '1',
-                completed: true,
-                own: true,
-                wishlist: false
+                isCompleted: true,
+                isOwned: true,
+                isWishListed: false
             },
             {
                 userId: '1',
                 videoGameId: '2',
-                completed: false,
-                own: false,
-                wishlist: true
+                isCompleted: false,
+                isOwned: false,
+                isWishListed: true
             }
         ]
     )

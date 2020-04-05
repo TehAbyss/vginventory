@@ -52,9 +52,9 @@ const VideoGame = (props: any) => {
   return (
     <div>
       <h2><Link to={`/videogames/${props.game.title}`}>{props.game.title}</Link></h2>
-      <p hidden={!props.userGame.own}>Own</p>
-      <p hidden={!props.userGame.completed}>Completed</p>
-      <p hidden={!props.userGame.wishlist}>Wishlist</p>
+      <p hidden={!props.userGame.isOwned}>Own</p>
+      <p hidden={!props.userGame.isCompleted}>Completed</p>
+      <p hidden={!props.userGame.isWishListed}>Wishlist</p>
     </div>
   )
 };

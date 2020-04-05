@@ -4,10 +4,10 @@ namespace VgInventory.Infra.WebApi.Models
 {
     public class UserVideoGame
     {
-        public string Id { get; set; }
-        public string UserProfileId { get; set; }
-        public bool UserCompleted { get; set; }
-        public bool WishList { get; set; }
-        public bool Owned { get; set; }
+        public string UserId { get; set; }
+        public string VideoGameId { get; set; }
+        public bool IsCompleted { get; set; }
+        public bool IsWishListed { get; set; }
+        public bool IsOwned { get; set; }
     }
 }
