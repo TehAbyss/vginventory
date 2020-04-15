@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Home } from "./components/Home";
 import { UserProfile } from "./components/UserProfile";
-import { MembersPage as MembersPage } from "./components/MembersPage";
+import { MembersPage } from "./components/MembersPage";
 import { VideoGameProfile } from "./components/VideoGameProfile";
 import { getUserProfileMock, getVideoGameList } from "./models/mocks/mockData";
 import { VideoGamesPage } from "./components/VideoGamesPage";
