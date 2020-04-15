@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { user } from '../models/iuser';
 
 export function useUserProfile(props:user) {
-    const [user, setUser] = useState<user>(props);
+    const [userObj, setUser] = useState<user>(props);
     const [userBio, setUserBio] = useState<string>(props.bio);
 
     useEffect(() => {
@@ -11,7 +11,7 @@ export function useUserProfile(props:user) {
     },[props]);
 
     return {
-        user,
+        userObj,
         setUser,
         userBio,
         setUserBio

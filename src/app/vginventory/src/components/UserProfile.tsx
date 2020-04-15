@@ -20,14 +20,14 @@ export const UserProfile = (props:any) => {
 }
 
 const UserComponent = (props:any) => {
-  const { user } = useUserProfile(props.user);
+  const { userObj } = useUserProfile(props.user);
 
   return (
     <div>
-      <h1>{user.name}</h1>
-      <p>Member Since: {user.startDate.month} {user.startDate.year}</p>
+      <h1>{userObj.name}</h1>
+      <p>Member Since: {userObj.startDate.month} {userObj.startDate.year}</p>
       <label>Bio:</label>
-      <p>{user.bio}</p>
+      <p>{userObj.bio}</p>
     </div>
   )
 }

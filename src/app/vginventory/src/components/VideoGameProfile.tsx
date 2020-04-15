@@ -4,15 +4,15 @@ import { useParams } from "react-router-dom";
 
 export const VideoGameProfile = (props: any) => {
     let { title } = useParams();
-    const { videoGame } = useVideoGame(title || '');
-    console.log(videoGame);
-    if (!videoGame) return null;
+    const { videogame } = useVideoGame(title || '');
+    console.log(videogame);
+    if (!videogame) return null;
 
     return (
         <div>
 
-            <h1>{videoGame.title}</h1>
-            <p>{videoGame.description}</p>
+            <h1>{videogame.title}</h1>
+            <p>{videogame.description}</p>
         </div>
     )
 };
