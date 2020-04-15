@@ -2,10 +2,11 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 import { Home } from "./components/Home";
 import { UserProfile } from "./components/UserProfile";
-import { MembersPage as MembersPage } from "./components/MembersPage";
+import { MembersPage } from "./components/MembersPage";
 import { VideoGameProfile } from "./components/VideoGameProfile";
 import { getUserProfileMock, getVideoGameList } from "./models/mocks/mockData";
 import { VideoGamesPage } from "./components/VideoGamesPage";
+import { NotFound } from "./components/NotFound";
 
 export default function Routes() {
   // TODO: props should come from useEffect and should useState
@@ -20,6 +21,7 @@ export default function Routes() {
         <Route path="/users" component={(props) => <UserProfile {...props} profile={profile} videoGames={videoGames} />} />
         <Route exact path="/videogames" component={() =>  <VideoGamesPage games={videoGames} />} />
         <Route path="/videogames/:title" component={() => <VideoGameProfile games={videoGames} />} />
+        <Route component={NotFound} />
       </Switch>
     </div>
   );
