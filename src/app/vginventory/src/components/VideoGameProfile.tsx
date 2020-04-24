@@ -1,10 +1,11 @@
 import React from 'react';
-import { useVideoGame } from "../hooks/useVideoGame";
+import { useGetVideoGame } from "../hooks/useGetVideoGame";
 import { useParams } from "react-router-dom";
+import { VideoGameEdit } from './VideoGameEdit';
 
 export const VideoGameProfile = (props: any) => {
     let { title } = useParams();
-    const { videogame } = useVideoGame(title || '');
+    const { videogame } = useGetVideoGame(title || '');
     console.log(videogame);
     if (!videogame) return null;
 
@@ -13,6 +14,7 @@ export const VideoGameProfile = (props: any) => {
 
             <h1>{videogame.title}</h1>
             <p>{videogame.description}</p>
+            <button type="button" onClick={() => <VideoGameEdit game={videogame} />}>Edit</button>
         </div>
     )
 };
