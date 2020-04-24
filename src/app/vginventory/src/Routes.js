@@ -20,7 +20,7 @@ export default function Routes() {
         <Route path="/members" component={() => <MembersPage /> } />
         <Route path="/users" component={(props) => <UserProfile {...props} profile={profile} videoGames={videoGames} />} />
         <Route exact path="/videogames" component={() =>  <VideoGamesPage games={videoGames} />} />
-        <Route path="/videogames/:title" component={() => <VideoGameProfile games={videoGames} />} />
+        <Route path="/videogames/:title" component={() => <VideoGameProfile />} />
         <Route component={NotFound} />
       </Switch>
     </div>
