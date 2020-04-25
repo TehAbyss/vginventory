@@ -4,6 +4,7 @@ import { videoGame } from '../models/ivideoGame';
 const axios = require('axios').default;
 
 export function useUpdateVideoGame(vg: videoGame) {
+    console.log(vg)
     const [videogame, setVideoGame] = useState<videoGame>(vg);
     const [description, setDescription] = useState<string>(vg.description);
     const url = 'https://localhost:5001/api/videogames'.concat(`/${vg.title}`);

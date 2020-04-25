@@ -2,7 +2,7 @@ import React from 'react';
 import { useUpdateVideoGame } from '../hooks/useUpdateVideoGame';
 
 export const VideoGameEdit = (props: any) => {
-    const { videogame, description, onDescriptionChange, onUpdate } = useUpdateVideoGame(props.game);
+    const { videogame, description, onDescriptionChange, onUpdate } = useUpdateVideoGame(props.location.state.game);
     
     return (
         <>
@@ -10,7 +10,7 @@ export const VideoGameEdit = (props: any) => {
             <form>
                 <label>
                     Description:
-                <textarea onChange={onDescriptionChange}>{description}</textarea>
+                <textarea value={description} onChange={onDescriptionChange} />
                 </label>
                 <p><input type="submit" value="Update" onClick={onUpdate} /></p>
             </form>
