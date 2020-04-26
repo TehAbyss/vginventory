@@ -21,6 +21,9 @@ export const NavBar = () => {
               <LinkContainer to="/videogames">
                 <Nav.Link>Video Games</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/test">
+                <Nav.Link>Test</Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
