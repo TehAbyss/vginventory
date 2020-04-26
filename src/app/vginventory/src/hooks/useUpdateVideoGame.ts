@@ -25,7 +25,7 @@ export function useUpdateVideoGame(vg: videoGame) {
         let game: videoGame = videogame;
         game.description = description;
         setVideoGame(game);
-        //updateVideoGame();
+        updateVideoGame();
         event.preventDefault();
     }
 
