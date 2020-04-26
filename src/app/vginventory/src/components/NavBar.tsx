@@ -24,6 +24,9 @@ export const NavBar = () => {
               <LinkContainer to="/test">
                 <Nav.Link>Test</Nav.Link>
               </LinkContainer>
+              <LinkContainer to="/test">
+                <Nav.Link>Test2</Nav.Link>
+              </LinkContainer>
             </Nav>
           </Navbar.Collapse>
         </Navbar>
