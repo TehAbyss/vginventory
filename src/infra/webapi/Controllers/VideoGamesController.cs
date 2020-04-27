@@ -88,16 +88,16 @@ namespace VgInventory.Infra.WebApi.Controllers
         }
 
         [HttpGet("{title}")]
-        public VideoGame ReadVideoGame(string title)
+        public ActionResult ReadVideoGame(string title)
         {
             if (!string.IsNullOrEmpty(title))
             {
                 var titleToLower = title.ToLower();
                 var entities = VideoGames.ReadAsync((entity) => entity.Title.ToLower().Equals(titleToLower)); 
-                return entities.Result.First();
+                return Ok(entities.Result.First());
             }
 
-            return new VideoGame();
+            return BadRequest($"Failed to get video game because {title} does not exist.");
         }
 
         #endregion Read
@@ -125,7 +125,8 @@ namespace VgInventory.Infra.WebApi.Controllers
                     entity.ReleaseDate = videoGame.ReleaseDate;
 
                     VideoGames.UpdateAsync(entity);
-                    return Ok();
+                    var resourceUrl = Path.Combine(Request.Path.ToString(), Uri.EscapeUriString(entity.Title));
+                    return Ok(entity);
                 }
                 else
                 {

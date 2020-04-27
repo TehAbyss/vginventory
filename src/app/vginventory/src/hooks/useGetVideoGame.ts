@@ -12,14 +12,14 @@ export function useGetVideoGame(title: string) {
         // eslint-disable-next-line
     }, []);
 
-    const readVideoGame = () => {
-        axios.get(url)
-        .then(function (response:any) {
+    const readVideoGame = async () => {
+        try {
+            const response = await axios.get(url);
             setVideoGame(response.data);
-        })
-        .catch(function (error:any) {
+        }
+        catch (error) {
             console.log(error);
-        })
+        }
     };
 
     return {

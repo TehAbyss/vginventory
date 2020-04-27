@@ -10,8 +10,14 @@ export function useUpdateVideoGame(vg: videoGame) {
     const url = 'https://localhost:5001/api/videogames'.concat(`/${vg.title}`);
 
     const updateVideoGame = async () => {
-        const response  = await axios.put(url,videogame);
-        setVideoGame(response.data);
+        try {
+            const response  = await axios.put(url,videogame);
+            console.log(response);
+            setVideoGame(response.data);
+        }
+        catch (error) {
+            console.log(error);
+        }
     };
 
     function onDescriptionChange(event:any) {
