@@ -22,7 +22,7 @@ namespace VgInventory.Infra.WebApi.Controllers
         public UserController(ILogger<UserController> logger)
         {
             Logger = logger;
-            Users = new MockDataConnector<User>();
+            Users = new CosmosDbDataConnector<User>();
         }
 
         #region Create

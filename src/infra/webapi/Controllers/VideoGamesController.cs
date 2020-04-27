@@ -22,7 +22,7 @@ namespace VgInventory.Infra.WebApi.Controllers
         public VideoGamesController(ILogger<VideoGamesController> logger)
         {
             Logger = logger;
-            VideoGames = new MockDataConnector<VideoGame>();
+            VideoGames = new CosmosDbDataConnector<VideoGame>();
         }
 
         #region Create
