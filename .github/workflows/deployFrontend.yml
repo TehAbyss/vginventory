@@ -18,7 +18,7 @@ jobs:
 
     # install dependencies, build, and test
     - name: npm install, build, and test
-      working-directory: .
+      working-directory: ./src/app/vginventory
       run: |
         npm install
         npm run build --if-present
