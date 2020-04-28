@@ -12,6 +12,6 @@ namespace VgInventory.Infra.WebApi.Models
 
         public string GetContainerId() { return nameof(UserVideoGame); }
         public string GetId() { return UserId + VideoGameId; }
-        public string GetPartitionKeyPath() { return "/UserId"; }
+        public string GetPartitionKeyPath() { return "/userId"; }
     }
 }

@@ -9,6 +9,6 @@ namespace VgInventory.Infra.WebApi.Models
 
         public string GetContainerId() { return nameof(UserCredential); }
         public string GetId() { return Id; }
-        public string GetPartitionKeyPath() { return "/Id"; }
+        public string GetPartitionKeyPath() { return "/id"; }
     }
 }
