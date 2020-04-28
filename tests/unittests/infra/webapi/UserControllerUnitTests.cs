@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging.Abstractions;
 using Xunit;
 using VgInventory.Infra.WebApi.Controllers;
+using VgInventory.Infra.WebApi.DataConnectors;
 using VgInventory.Infra.WebApi.Models;
 
 namespace VgInventory.Infra.WebApi.Tests
@@ -23,7 +24,8 @@ namespace VgInventory.Infra.WebApi.Tests
         public void ConstructorNoThrowExeption()
         {
             var logger = NullLogger<UserController>.Instance;
-            var Controller = new UserController(logger);
+            var dataConnector = new MockDataConnector<User>();
+            var Controller = new UserController(dataConnector, logger);
         }
 
         [Fact]
@@ -182,7 +184,9 @@ namespace VgInventory.Infra.WebApi.Tests
 
         private static UserController CreateUserController()
         {
-            var controller = new UserController(NullLogger<UserController>.Instance);
+            var logger = NullLogger<UserController>.Instance;
+            var dataConnector = new MockDataConnector<User>();
+            var controller = new UserController(dataConnector, logger);
             controller.ControllerContext.HttpContext = new DefaultHttpContext();
             return controller;
         }
