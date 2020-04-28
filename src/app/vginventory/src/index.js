@@ -26,11 +26,12 @@ ReactDOM.render(
         client_id={process.env.REACT_APP_AUTH_CLIENT_ID}
         redirect_uri={window.location.origin}
         onRedirectCallback={onRedirectCallback}
-        cacheLocation='localstorage'
-    >
+        cacheLocation='localstorage'>
+
         <Router>
             <App />
         </Router>
+
     </Auth0Provider>, 
     document.getElementById('root')
 );
