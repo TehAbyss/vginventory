@@ -17,12 +17,12 @@ namespace VgInventory.Infra.WebApi.Controllers
     {
         private readonly ILogger<VideoGamesController> Logger;
 
-        private readonly IDataConnector<VideoGame> VideoGames;
+        private readonly IDataConnector<VideoGame> DataConnector;
 
-        public VideoGamesController(ILogger<VideoGamesController> logger)
+        public VideoGamesController(IDataConnector<VideoGame> dataConnector, ILogger<VideoGamesController> logger)
         {
             Logger = logger;
-            VideoGames = new CosmosDbDataConnector<VideoGame>();
+            DataConnector = dataConnector;
         }
 
         #region Create
@@ -32,7 +32,7 @@ namespace VgInventory.Infra.WebApi.Controllers
             if (videoGame != null)
             {
                 var title = videoGame.Title.ToLower();
-                var entities = VideoGames.ReadAsync((entity) =>
+                var entities = DataConnector.ReadAsync((entity) =>
                     entity.Title.ToLower().Equals(title));
                 var count = entities.Result.Count();
 
@@ -53,7 +53,7 @@ namespace VgInventory.Infra.WebApi.Controllers
                                 // This should be reliable enough for getting unique ids but we should
                                 // still check because unique-ness is not guaranteed. 
                                 var newId = Guid.NewGuid().ToString();
-                                while (VideoGames.ReadAsync((entity) => entity.Id.Equals(id)).Result.Count() > 0) 
+                                while (DataConnector.ReadAsync((entity) => entity.Id.Equals(id)).Result.Count() > 0) 
                                 {
                                     cancellationToken.ThrowIfCancellationRequested();
                                     newId = Guid.NewGuid().ToString();
@@ -67,7 +67,7 @@ namespace VgInventory.Infra.WebApi.Controllers
                     }
 
                     videoGame.Id = id;
-                    VideoGames.CreateAsync(videoGame);
+                    DataConnector.CreateAsync(videoGame);
                     var resourceUrl = Path.Combine(Request.Path.ToString(), Uri.EscapeUriString(videoGame.Title));
                     return Created(resourceUrl, videoGame);
                 }
@@ -83,7 +83,7 @@ namespace VgInventory.Infra.WebApi.Controllers
         [HttpGet]
         public IEnumerable<VideoGame> ReadVideoGame()
         {
-            var entities = VideoGames.ReadAsync();
+            var entities = DataConnector.ReadAsync();
             return entities.Result;
         }
 
@@ -93,7 +93,7 @@ namespace VgInventory.Infra.WebApi.Controllers
             if (!string.IsNullOrEmpty(title))
             {
                 var titleToLower = title.ToLower();
-                var entities = VideoGames.ReadAsync((entity) => entity.Title.ToLower().Equals(titleToLower)); 
+                var entities = DataConnector.ReadAsync((entity) => entity.Title.ToLower().Equals(titleToLower)); 
                 return Ok(entities.Result.First());
             }
 
@@ -110,7 +110,7 @@ namespace VgInventory.Infra.WebApi.Controllers
             if (videoGame != null)
             {
                 var titleToLower = videoGame.Title.ToLower();
-                var entities = VideoGames.ReadAsync((entity) => entity.Title.ToLower().Equals(titleToLower));
+                var entities = DataConnector.ReadAsync((entity) => entity.Title.ToLower().Equals(titleToLower));
                 var count = entities.Result.Count();
 
                 if (count == 0)
@@ -124,7 +124,7 @@ namespace VgInventory.Infra.WebApi.Controllers
                     entity.Genre = videoGame.Genre;
                     entity.ReleaseDate = videoGame.ReleaseDate;
 
-                    VideoGames.UpdateAsync(entity);
+                    DataConnector.UpdateAsync(entity);
                     var resourceUrl = Path.Combine(Request.Path.ToString(), Uri.EscapeUriString(entity.Title));
                     return Ok(entity);
                 }
