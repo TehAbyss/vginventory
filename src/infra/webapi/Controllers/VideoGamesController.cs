@@ -73,7 +73,7 @@ namespace VgInventory.Infra.WebApi.Controllers
                 }
             }
            
-            return BadRequest("Failed to create new user. The user email or user name is invalid.");
+            return BadRequest("Failed to create new video game.");
         }
 
         #endregion Create
@@ -88,55 +88,54 @@ namespace VgInventory.Infra.WebApi.Controllers
         }
 
         [HttpGet("{title}")]
-        public VideoGame ReadVideoGame(string title)
+        public ActionResult ReadVideoGame(string title)
         {
             if (!string.IsNullOrEmpty(title))
             {
                 var titleToLower = title.ToLower();
                 var entities = VideoGames.ReadAsync((entity) => entity.Title.ToLower().Equals(titleToLower)); 
-                return entities.Result.First();
+                return Ok(entities.Result.First());
             }
 
-            return new VideoGame();
+            return BadRequest($"Failed to get video game because {title} does not exist.");
         }
 
         #endregion Read
 
         #region Update
 
-        /*[HttpPut]
-        public ActionResult UpdateUser(User user)
+        [HttpPut("{title}")]
+        public ActionResult UpdateUser(VideoGame videoGame)
         {
-            if (user != null && user.UserName.IsValidUserName())
+            if (videoGame != null)
             {
-                var userNameLower = user.UserName.ToLower();
-                var entities = Users.ReadAsync((entity) => entity.UserName.ToLower().Equals(userNameLower));
+                var titleToLower = videoGame.Title.ToLower();
+                var entities = VideoGames.ReadAsync((entity) => entity.Title.ToLower().Equals(titleToLower));
                 var count = entities.Result.Count();
 
                 if (count == 0)
                 {
-                    return BadRequest("Failed to update user because user does not exist.");
+                    return BadRequest($"Failed to update video game because {videoGame.Title} does not exist.");
                 }
                 else if (count == 1)
                 {
                     var entity = entities.Result.First();
-                    var newUser = new User
-                    {
-                        Id = entity.Id,
-                        Bio = user.Bio,
-                        AvatarUrl = user.AvatarUrl
-                    };
-                    Users.UpdateAsync(newUser);
-                    return Ok();
+                    entity.Description = videoGame.Description;
+                    entity.Genre = videoGame.Genre;
+                    entity.ReleaseDate = videoGame.ReleaseDate;
+
+                    VideoGames.UpdateAsync(entity);
+                    var resourceUrl = Path.Combine(Request.Path.ToString(), Uri.EscapeUriString(entity.Title));
+                    return Ok(entity);
                 }
                 else
                 {
-                    return Conflict("Failed to update user because multiple users found.");
+                    return Conflict($"Failed to update video game. Too many entries with title: {videoGame.Title}");
                 }
             }
 
-            return BadRequest("Invalid user name.");
-        }*/
+            return BadRequest("Invalid video game.");
+        }
 
         #endregion Update
 

@@ -1,4 +1,4 @@
-import { date } from "./idate";
+import { date, getEmptyDate } from "./idate";
 
 export interface videoGame {
     id: string;
@@ -7,3 +7,7 @@ export interface videoGame {
     description: string;
     releaseDate: date;
 };
+
+export function getEmptyVideoGame() {
+    return {id: '', title: '', genre: '', description: '', releaseDate: getEmptyDate()};
+}

@@ -1,0 +1,20 @@
+.VG-div {
+    display: flex;
+    flex-direction: row; 
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.VG-card {
+    width: 18em;
+    max-height: 18em;
+    margin: 1em;
+}
+
+.VG-card-body {
+    overflow: hidden;
+}
+
+.VG-card-text {
+    word-wrap: break-word;
+}
