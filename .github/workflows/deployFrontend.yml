@@ -3,7 +3,7 @@ on:
     branches:
       - master
 
-name: Build and deploy Node app
+name: Build and deploy frontend
 
 jobs:
   build-and-deploy:
@@ -24,7 +24,6 @@ jobs:
         npm run build --if-present
         npm run test --if-present
 
-
     - uses: azure/appservice-settings@v1
       with:
         app-name: vginventory
@@ -34,7 +33,7 @@ jobs:
     - uses: azure/webapps-deploy@v1
       with:
         app-name: vginventory
-        package: .
+        package: src/app/vginventory
 
     # Azure logout
     - name: logout
