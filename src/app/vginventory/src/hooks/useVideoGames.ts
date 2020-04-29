@@ -11,6 +11,7 @@ export function useVideoGames(props: videoGame[]) {
     useEffect(() => {
         //TODO: this useEffect should call the users api and get a user by id
         readVideoGames();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[]);
 
     const readVideoGames = async () => {

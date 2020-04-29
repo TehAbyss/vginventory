@@ -9,6 +9,7 @@ export function useMembers(props: any) {
 
     useEffect(() => {
         readUser();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const createUser = async (user: any) => {
