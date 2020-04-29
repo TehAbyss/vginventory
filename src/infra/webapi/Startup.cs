@@ -58,6 +58,14 @@ namespace VgInventory.Infra.WebApi
                     .AllowAnyMethod()
                     .AllowAnyHeader());
             }
+            else
+            {
+                // Production
+                var allowedOrigins = Configuration["ALLOWED_ORIGINS"];
+                var origins = allowedOrigins.Split(";");
+                app.UseCors(x => x
+                    .WithOrigins(origins));
+            }
 
             app.UseHttpsRedirection();
 

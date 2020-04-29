@@ -1,13 +1,15 @@
 import { useState, useEffect } from 'react';
+import { baseApiUrl } from '../config';
 
 const axios = require('axios').default;
 
 export function useMembers(props: any) {
     const [user, setUser] = useState([]);
-    const url = 'https://localhost:5001/api/user';
+    const url = baseApiUrl.concat('/api/user');
 
     useEffect(() => {
         readUser();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const createUser = async (user: any) => {
