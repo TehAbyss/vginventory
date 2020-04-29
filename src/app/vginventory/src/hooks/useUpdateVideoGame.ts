@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { videoGame } from '../models/ivideoGame';
+import { baseApiUrl } from '../config';
 import { useHistory } from 'react-router-dom';
+import { videoGame } from '../models/ivideoGame';
 
 const axios = require('axios').default;
 
@@ -8,7 +9,7 @@ export function useUpdateVideoGame(vg: videoGame) {
     console.log(vg)
     const [videogame, setVideoGame] = useState<videoGame>(vg);
     const [description, setDescription] = useState<string>(vg.description);
-    const url = 'https://localhost:5001/api/videogames'.concat(`/${vg.title}`);
+    const url = baseApiUrl.concat(`/api/videogames/${vg.title}`);
     let history = useHistory();
 
     const updateVideoGame = async () => {

@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import { baseApiUrl } from "../config";
 import { videoGame } from '../models/ivideoGame';
 
 const axios = require('axios').default;
 
 export function useVideoGames(props: videoGame[]) {
     const [videoGames, setVideoGames] = useState<videoGame[]>([]);
-    const url = 'https://localhost:5001/api/videogames';
+    const url = baseApiUrl.concat('/api/videogames');
 
     useEffect(() => {
         //TODO: this useEffect should call the users api and get a user by id

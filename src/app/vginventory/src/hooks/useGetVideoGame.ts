@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import { baseApiUrl } from '../config';
 import { videoGame } from '../models/ivideoGame';
 
 const axios = require('axios').default;
 
 export function useGetVideoGame(title: string) {
     const [videogame, setVideoGame] = useState<videoGame>();
-    const url = 'https://localhost:5001/api/videogames'.concat(`/${title}`);
+    const url = baseApiUrl.concat(`/api/videogames/${title}`);
 
     useEffect(() => {
         readVideoGame();
