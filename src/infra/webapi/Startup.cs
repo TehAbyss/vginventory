@@ -10,14 +10,19 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using VgInventory.Infra.WebApi.DataConnectors;
+using VgInventory.Infra.WebApi.Models;
 
 namespace VgInventory.Infra.WebApi
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private bool IsDevelopment = true;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            IsDevelopment = env.IsDevelopment();
         }
 
         public IConfiguration Configuration { get; }
@@ -25,6 +30,17 @@ namespace VgInventory.Infra.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            if (IsDevelopment)
+            {
+                services.AddSingleton<IDataConnector<User>>(new MockDataConnector<User>());
+                services.AddSingleton<IDataConnector<VideoGame>>(new MockDataConnector<VideoGame>());
+            }
+            else
+            {
+                services.AddSingleton<IDataConnector<User>>(new CosmosDbDataConnector<User>());
+                services.AddSingleton<IDataConnector<VideoGame>>(new CosmosDbDataConnector<VideoGame>());
+            }
+
             services.AddControllers();
         }
 

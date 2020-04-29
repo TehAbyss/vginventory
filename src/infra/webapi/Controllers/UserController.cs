@@ -17,12 +17,12 @@ namespace VgInventory.Infra.WebApi.Controllers
     {
         private readonly ILogger<UserController> Logger;
 
-        private readonly IDataConnector<User> Users;
+        private readonly IDataConnector<User> DataConnector;
 
-        public UserController(ILogger<UserController> logger)
+        public UserController(IDataConnector<User> dataConnector, ILogger<UserController> logger)
         {
             Logger = logger;
-            Users = new MockDataConnector<User>();
+            DataConnector = dataConnector;
         }
 
         #region Create
@@ -33,7 +33,7 @@ namespace VgInventory.Infra.WebApi.Controllers
             {
                 var emailLower = user.Email.ToLower();
                 var userNameLower = user.UserName.ToLower();
-                var entities = Users.ReadAsync((entity) =>
+                var entities = DataConnector.ReadAsync((entity) =>
                     entity.Email.ToLower().Equals(emailLower) ||
                     entity.UserName.ToLower().Equals(emailLower));
                 var count = entities.Result.Count();
@@ -55,7 +55,7 @@ namespace VgInventory.Infra.WebApi.Controllers
                                 // This should be reliable enough for getting unique ids but we should
                                 // still check because unique-ness is not guaranteed. 
                                 var newId = Guid.NewGuid().ToString();
-                                while (Users.ReadAsync((entity) => entity.Id.Equals(id)).Result.Count() > 0) 
+                                while (DataConnector.ReadAsync((entity) => entity.Id.Equals(id)).Result.Count() > 0) 
                                 {
                                     cancellationToken.ThrowIfCancellationRequested();
                                     newId = Guid.NewGuid().ToString();
@@ -79,7 +79,7 @@ namespace VgInventory.Infra.WebApi.Controllers
                             AvatarUrl = user.AvatarUrl
                         };
 
-                    Users.CreateAsync(newUser);
+                    DataConnector.CreateAsync(newUser);
                     var resourceUrl = Path.Combine(Request.Path.ToString(), Uri.EscapeUriString(newUser.UserName));
                     return Created(resourceUrl, newUser);
                 }
@@ -95,7 +95,7 @@ namespace VgInventory.Infra.WebApi.Controllers
         [HttpGet]
         public IEnumerable<User> ReadUser()
         {
-            var entities = Users.ReadAsync();
+            var entities = DataConnector.ReadAsync();
             return entities.Result;
         }
 
@@ -105,7 +105,7 @@ namespace VgInventory.Infra.WebApi.Controllers
             if (userName.IsValidUserName())
             {
                 var userNameLower = userName.ToLower();
-                var entities = Users.ReadAsync((entity) => entity.UserName.ToLower().Equals(userNameLower)); 
+                var entities = DataConnector.ReadAsync((entity) => entity.UserName.ToLower().Equals(userNameLower)); 
                 return entities.Result;
             }
 
@@ -122,7 +122,7 @@ namespace VgInventory.Infra.WebApi.Controllers
             if (user != null && user.UserName.IsValidUserName())
             {
                 var userNameLower = user.UserName.ToLower();
-                var entities = Users.ReadAsync((entity) => entity.UserName.ToLower().Equals(userNameLower));
+                var entities = DataConnector.ReadAsync((entity) => entity.UserName.ToLower().Equals(userNameLower));
                 var count = entities.Result.Count();
 
                 if (count == 0)
@@ -138,7 +138,7 @@ namespace VgInventory.Infra.WebApi.Controllers
                         Bio = user.Bio,
                         AvatarUrl = user.AvatarUrl
                     };
-                    Users.UpdateAsync(newUser);
+                    DataConnector.UpdateAsync(newUser);
                     return Ok();
                 }
                 else
@@ -160,7 +160,7 @@ namespace VgInventory.Infra.WebApi.Controllers
             if (user != null && user.UserName.IsValidUserName())
             {
                 var userNameLower = user.UserName.ToLower();
-                var entities = Users.ReadAsync((entity) => entity.UserName.ToLower().Equals(userNameLower));
+                var entities = DataConnector.ReadAsync((entity) => entity.UserName.ToLower().Equals(userNameLower));
                 var count = entities.Result.Count();
 
                 if (count == 0)
@@ -170,7 +170,7 @@ namespace VgInventory.Infra.WebApi.Controllers
                 else if (count == 1)
                 {
                     var entity = entities.Result.First();
-                    var result = Users.DeleteAsync(entity);
+                    var result = DataConnector.DeleteAsync(entity);
                     return Ok();
                 }
                 else
