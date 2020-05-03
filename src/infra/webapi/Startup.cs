@@ -64,7 +64,9 @@ namespace VgInventory.Infra.WebApi
                 var allowedOrigins = Configuration["ALLOWED_ORIGINS"];
                 var origins = allowedOrigins.Split(";");
                 app.UseCors(x => x
-                    .WithOrigins(origins));
+                    .WithOrigins(origins)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
             }
 
             app.UseHttpsRedirection();
