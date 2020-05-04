@@ -2,14 +2,20 @@ import React from 'react';
 import { NavBar } from './components/NavBar';
 import { Router } from "react-router-dom";
 import { useAuth0 } from "./react-auth0-spa";
+import { LoadingPage } from "./components/LoadingPage";
 import Routes from './Routes';
 import history from "./utils/history";
+import './App.css';
 
 function App() {
   const { loading } = useAuth0();
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div class="center">
+        <LoadingPage type="spinningBubbles" color="grey" />
+      </div>
+    );
   }
 
   return (
