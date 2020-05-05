@@ -6,16 +6,14 @@ import { videoGame } from '../models/ivideoGame';
 const axios = require('axios').default;
 
 export function useUpdateVideoGame(vg: videoGame) {
-    console.log(vg)
     const [videogame, setVideoGame] = useState<videoGame>(vg);
     const [description, setDescription] = useState<string>(vg.description);
-    const url = baseApiUrl.concat(`/api/videogames/${vg.title}`);
+    const url = baseApiUrl.concat('/api/videogames');
     let history = useHistory();
 
     const updateVideoGame = async () => {
         try {
             const response  = await axios.put(url,videogame);
-            console.log(response);
             setVideoGame(response.data);
             history.push(`/videogames/${videogame.title}`);
         }
