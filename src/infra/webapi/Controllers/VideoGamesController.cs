@@ -104,7 +104,7 @@ namespace VgInventory.Infra.WebApi.Controllers
 
         #region Update
 
-        [HttpPut("{title}")]
+        [HttpPut]
         public ActionResult UpdateUser(VideoGame videoGame)
         {
             if (videoGame != null)
@@ -125,7 +125,6 @@ namespace VgInventory.Infra.WebApi.Controllers
                     entity.ReleaseDate = videoGame.ReleaseDate;
 
                     DataConnector.UpdateAsync(entity);
-                    var resourceUrl = Path.Combine(Request.Path.ToString(), Uri.EscapeUriString(entity.Title));
                     return Ok(entity);
                 }
                 else

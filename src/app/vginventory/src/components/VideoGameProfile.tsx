@@ -6,7 +6,7 @@ export const VideoGameProfile = () => {
     let { title } = useParams();
     let history = useHistory();
     const { videogame } = useGetVideoGame(title || '');
-    console.log(videogame);
+
     if (!videogame) return null;
 
     return (

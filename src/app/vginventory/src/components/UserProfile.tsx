@@ -6,7 +6,6 @@ import { VideoGameListProps } from '../models/iprops';
 import { userVideoGame } from '../models/iuserVideoGame';
 
 export const UserProfile = (props:any) => {
-  console.log(props)
   const videoGameProps: VideoGameListProps = {
     videoGames: props.videoGames,
     userVideoGames: props.profile.userVideoGames
