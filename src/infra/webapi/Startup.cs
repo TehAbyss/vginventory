@@ -17,20 +17,20 @@ namespace VgInventory.Infra.WebApi
 {
     public class Startup
     {
-        private bool IsDevelopment = true;
-
         public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
-            IsDevelopment = env.IsDevelopment();
+            WebHostEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
 
+        public IWebHostEnvironment WebHostEnvironment { get; }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            if (IsDevelopment)
+            if (WebHostEnvironment.IsDevelopment())
             {
                 services.AddSingleton<IDataConnector<User>>(new MockDataConnector<User>());
                 services.AddSingleton<IDataConnector<VideoGame>>(new MockDataConnector<VideoGame>());
