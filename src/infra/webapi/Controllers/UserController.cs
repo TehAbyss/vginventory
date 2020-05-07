@@ -99,16 +99,15 @@ namespace VgInventory.Infra.WebApi.Controllers
             return entities.Result;
         }
 
-        [HttpGet]
-        public IEnumerable<User> ReadUser(User user)
+        [HttpGet("{userEmailOrUserName}")]
+        public IEnumerable<User> ReadUser(string userEmailOrUserName)
         {
-            if (user != null && user.Email.IsValidEmail() || user.UserName.IsValidUserName())
+            if (userEmailOrUserName.IsValidEmail() || userEmailOrUserName.IsValidUserName())
             {
-                var userEmailLower = user.Email.ToLower();
-                var userNameLower = user.UserName.ToLower();
+                var userEmailOrUserNameLower = userEmailOrUserName?.ToLower() ?? string.Empty;
                 var entities = DataConnector.ReadAsync((entity) =>
-                    entity.UserName.ToLower().Equals(userNameLower) ||
-                    entity.Email.ToLower().Equals(userEmailLower)
+                    entity.Email.ToLower().Equals(userEmailOrUserNameLower) ||
+                    entity.UserName.ToLower().Equals(userEmailOrUserNameLower)
                 );
                 return entities.Result;
             }
