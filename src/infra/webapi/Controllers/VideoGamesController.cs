@@ -104,13 +104,13 @@ namespace VgInventory.Infra.WebApi.Controllers
 
         #region Update
 
-        [HttpPut("{id}")]
-        public ActionResult UpdateUser(string id, VideoGame videoGame)
+        [HttpPut]
+        public ActionResult UpdateVideoGame(VideoGame videoGame)
         {
-            if (videoGame != null && videoGame.Id == id)
+            if (videoGame != null && videoGame.Id != null)
             {
-                var titleToLower = videoGame.Title.ToLower();
-                var entities = DataConnector.ReadAsync((entity) => entity.Title.ToLower().Equals(titleToLower));
+                var idToLower = videoGame.Id.ToLower();
+                var entities = DataConnector.ReadAsync((entity) => entity.Id.ToLower().Equals(idToLower));
                 var count = entities.Result.Count();
 
                 if (count == 0)
