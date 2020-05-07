@@ -47,7 +47,7 @@ namespace VgInventory.Infra.WebApi.DataConnectors
 
         public async Task DeleteAsync(TEntity entity)
         {
-            var item = (ICosmosDbModel)Convert.ChangeType(entity, typeof(ICosmosDbModel));
+            var item = (ICosmosDbModel)(entity);
             await this.container.DeleteItemAsync<TEntity>(item.GetId(), item.GetId().GetPartitionKey());
         }
 
@@ -67,7 +67,7 @@ namespace VgInventory.Infra.WebApi.DataConnectors
 
         public async Task UpdateAsync(TEntity entity)
         {
-            var item = (ICosmosDbModel)Convert.ChangeType(entity, typeof(ICosmosDbModel));
+            var item = (ICosmosDbModel)(entity);
             await this.container.UpsertItemAsync(entity, item.GetId().GetPartitionKey());
         }
     }
