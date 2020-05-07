@@ -8,7 +8,7 @@ const axios = require('axios').default;
 export function useUpdateVideoGame(vg: videoGame) {
     const [videogame, setVideoGame] = useState<videoGame>(vg);
     const [description, setDescription] = useState<string>(vg.description);
-    const url = baseApiUrl.concat('/api/videogames');
+    const url = baseApiUrl.concat(`/api/videogames/${videogame.id}`);
     let history = useHistory();
 
     const updateVideoGame = async () => {
