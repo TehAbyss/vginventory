@@ -93,19 +93,23 @@ namespace VgInventory.Infra.WebApi.Controllers
         #region Read
         
         [HttpGet]
-        public IEnumerable<User> ReadUser()
+        public IEnumerable<User> ReadAllUsers()
         {
             var entities = DataConnector.ReadAsync();
             return entities.Result;
         }
 
-        [HttpGet("{userName}")]
-        public IEnumerable<User> ReadUser(string userName)
+        [HttpGet]
+        public IEnumerable<User> ReadUser(User user)
         {
-            if (userName.IsValidUserName())
+            if (user != null && user.Email.IsValidEmail() || user.UserName.IsValidUserName())
             {
-                var userNameLower = userName.ToLower();
-                var entities = DataConnector.ReadAsync((entity) => entity.UserName.ToLower().Equals(userNameLower)); 
+                var userEmailLower = user.Email.ToLower();
+                var userNameLower = user.UserName.ToLower();
+                var entities = DataConnector.ReadAsync((entity) =>
+                    entity.UserName.ToLower().Equals(userNameLower) ||
+                    entity.Email.ToLower().Equals(userEmailLower)
+                );
                 return entities.Result;
             }
 
@@ -119,10 +123,10 @@ namespace VgInventory.Infra.WebApi.Controllers
         [HttpPut]
         public ActionResult UpdateUser(User user)
         {
-            if (user != null && user.UserName.IsValidUserName())
+            if (user != null && user.Id != null)
             {
-                var userNameLower = user.UserName.ToLower();
-                var entities = DataConnector.ReadAsync((entity) => entity.UserName.ToLower().Equals(userNameLower));
+                var idToLower = user.Id.ToLower();
+                var entities = DataConnector.ReadAsync((entity) => entity.Id.ToLower().Equals(idToLower));
                 var count = entities.Result.Count();
 
                 if (count == 0)
@@ -132,13 +136,10 @@ namespace VgInventory.Infra.WebApi.Controllers
                 else if (count == 1)
                 {
                     var entity = entities.Result.First();
-                    var newUser = new User
-                    {
-                        Id = entity.Id,
-                        Bio = user.Bio,
-                        AvatarUrl = user.AvatarUrl
-                    };
-                    DataConnector.UpdateAsync(newUser);
+                    entity.Bio = user.Bio;
+                    entity.AvatarUrl = user.AvatarUrl;
+
+                    DataConnector.UpdateAsync(entity);
                     return Ok();
                 }
                 else
@@ -157,10 +158,10 @@ namespace VgInventory.Infra.WebApi.Controllers
         [HttpDelete]
         public ActionResult DeleteUser(User user)
         {
-            if (user != null && user.UserName.IsValidUserName())
+            if (user != null && user.Id != null)
             {
-                var userNameLower = user.UserName.ToLower();
-                var entities = DataConnector.ReadAsync((entity) => entity.UserName.ToLower().Equals(userNameLower));
+                var idLower = user.Id.ToLower();
+                var entities = DataConnector.ReadAsync((entity) => entity.Id.ToLower().Equals(idLower));
                 var count = entities.Result.Count();
 
                 if (count == 0)
