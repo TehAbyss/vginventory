@@ -113,7 +113,7 @@ namespace VgInventory.Infra.WebApi.Tests
         [Fact]
         public void ReadUserReturnsListWithOneEntityWhenUserNameFound()
         {
-            var allEntities = Controller.ReadUser();
+            var allEntities = Controller.ReadAllUsers();
             Assert.True(allEntities.Count() > 0);
 
             var userNameToQuery = allEntities.First().UserName;
@@ -133,7 +133,7 @@ namespace VgInventory.Infra.WebApi.Tests
 
             Controller.UpdateUser(userToUpdate);
 
-            var entities = Controller.ReadUser();
+            var entities = Controller.ReadAllUsers();
             var foundUser = entities.ToList().Find((u) => u.Bio.Contains(mockData) || u.AvatarUrl.Contains(mockData));
             Assert.True(foundUser == null, "Non-existing user should not modify database");
         }
@@ -143,7 +143,7 @@ namespace VgInventory.Infra.WebApi.Tests
         {
             var mockData = "<<mock>>";
 
-            var userToUpdate = Controller.ReadUser().First();
+            var userToUpdate = Controller.ReadAllUsers().First();
             userToUpdate.Bio = mockData;
             userToUpdate.AvatarUrl = mockData;
 
@@ -158,12 +158,12 @@ namespace VgInventory.Infra.WebApi.Tests
         [Fact]
         public void DeleteUserDeletesValidUserFromDatabase()
         {
-            var allUsersCount = Controller.ReadUser().Count();
+            var allUsersCount = Controller.ReadAllUsers().Count();
 
-            var userToDelete = Controller.ReadUser().First();
+            var userToDelete = Controller.ReadAllUsers().First();
             Controller.DeleteUser(userToDelete);
 
-            var currentUsers = Controller.ReadUser();
+            var currentUsers = Controller.ReadAllUsers();
             var currentUsersCount = currentUsers.Count();
 
             var entities = Controller.ReadUser(userToDelete.UserName);
@@ -175,10 +175,10 @@ namespace VgInventory.Infra.WebApi.Tests
         [Fact]
         public void DeleteUserShouldNotModifyDatabaseWithInvalidUser()
         {
-            var allUsers = Controller.ReadUser();
+            var allUsers = Controller.ReadAllUsers();
             var invalidUser = CreateUser();
             Controller.DeleteUser(invalidUser);
-            var currentUsers = Controller.ReadUser();
+            var currentUsers = Controller.ReadAllUsers();
             Assert.True(allUsers.Count() == currentUsers.Count(), "Invalid user should not modify database"); 
         }
 
