@@ -34,17 +34,7 @@ export function useMembers(props: any) {
     };
 
     const updateUser = async (user: any) => {
-        const config = {
-            headers: {
-                'Content-Type':'application/json'
-            },
-            data: {
-                userName: user.userName,
-                bio: user.bio,
-                avatarUrl: user.avatarUrl
-            }
-        };
-        await axios.put(url, null, config);
+        await axios.put(url, user);
         readUser();
     };
 
@@ -54,7 +44,7 @@ export function useMembers(props: any) {
                 'Content-Type':'application/json'
             },
             data: {
-                userName: user.userName
+                id: user.id
             }
         };
         await axios.delete(url, config);
