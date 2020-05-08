@@ -104,13 +104,13 @@ namespace VgInventory.Infra.WebApi.Controllers
 
         #region Update
 
-        [HttpPut("{id}")]
-        public ActionResult UpdateUser(string id, VideoGame videoGame)
+        [HttpPut]
+        public ActionResult UpdateVideoGame(VideoGame videoGame)
         {
-            if (videoGame != null && videoGame.Id == id)
+            if (videoGame != null && videoGame.Id != null)
             {
-                var titleToLower = videoGame.Title.ToLower();
-                var entities = DataConnector.ReadAsync((entity) => entity.Title.ToLower().Equals(titleToLower));
+                var idLower = videoGame.Id.ToLower();
+                var entities = DataConnector.ReadAsync((entity) => entity.Id.ToLower().Equals(idLower));
                 var count = entities.Result.Count();
 
                 if (count == 0)
@@ -140,13 +140,13 @@ namespace VgInventory.Infra.WebApi.Controllers
 
         #region Delete
 
-        /*[HttpDelete]
-        public ActionResult DeleteUser(User user)
+        [HttpDelete]
+        public ActionResult DeleteVideoGame(VideoGame videoGame)
         {
-            if (user != null && user.UserName.IsValidUserName())
+            if (videoGame != null && videoGame.Id != null)
             {
-                var userNameLower = user.UserName.ToLower();
-                var entities = Users.ReadAsync((entity) => entity.UserName.ToLower().Equals(userNameLower));
+                var idLower = videoGame.Id.ToLower();
+                var entities = DataConnector.ReadAsync((entity) => entity.Id.ToLower().Equals(idLower));
                 var count = entities.Result.Count();
 
                 if (count == 0)
@@ -156,7 +156,7 @@ namespace VgInventory.Infra.WebApi.Controllers
                 else if (count == 1)
                 {
                     var entity = entities.Result.First();
-                    var result = Users.DeleteAsync(entity);
+                    var result = DataConnector.DeleteAsync(entity);
                     return Ok();
                 }
                 else
@@ -166,7 +166,7 @@ namespace VgInventory.Infra.WebApi.Controllers
             }
 
             return BadRequest("Invalid user name.");
-        }*/
+        }
 
         #endregion Delete
     }
