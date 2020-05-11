@@ -34,11 +34,13 @@ namespace VgInventory.Infra.WebApi
             {
                 services.AddSingleton<IDataConnector<User>>(new MockDataConnector<User>());
                 services.AddSingleton<IDataConnector<VideoGame>>(new MockDataConnector<VideoGame>());
+                services.AddSingleton<IDataConnector<UserVideoGame>>(new MockDataConnector<UserVideoGame>());
             }
             else
             {
                 services.AddSingleton<IDataConnector<User>>(new CosmosDbDataConnector<User>());
                 services.AddSingleton<IDataConnector<VideoGame>>(new CosmosDbDataConnector<VideoGame>());
+                services.AddSingleton<IDataConnector<UserVideoGame>>(new CosmosDbDataConnector<UserVideoGame>());
             }
 
             services.AddControllers();
