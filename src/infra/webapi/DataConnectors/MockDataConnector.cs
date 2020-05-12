@@ -37,6 +37,12 @@ namespace VgInventory.Infra.WebApi.DataConnectors
 
         }.ToList();
 
+        private static List<UserVideoGame> UserVideoGamesTable = new[]
+        {
+            new UserVideoGame() { Id = "1", UserId = "fa98cc2a-4477-4e68-a9f9-a9684cacda9b", VideoGameId = "08ab8d1d-b1fd-4344-8953-c993400b1482", IsOwned = true, IsWishListed = false , IsCompleted = false},
+            new UserVideoGame() { Id = "2", UserId = "fa98cc2a-4477-4e68-a9f9-a9684cacda9b", VideoGameId = "837bab87-2cbb-4ec8-867d-15aabdd430ab", IsOwned = true, IsWishListed = false , IsCompleted = true},
+        }.ToList();
+
         public MockDataConnector()
         {
         }
@@ -67,6 +73,15 @@ namespace VgInventory.Infra.WebApi.DataConnectors
                 if (!VideoGamesTable.Contains(item))
                 {
                     VideoGamesTable.Add(item);
+                    return Task.CompletedTask;
+                }
+            }
+            else if (typeof(TEntity) == typeof(UserVideoGame))
+            {
+                var item = (UserVideoGame)Convert.ChangeType(entity, typeof(UserVideoGame));
+                if (!UserVideoGamesTable.Contains(item))
+                {
+                    UserVideoGamesTable.Add(item);
                     return Task.CompletedTask;
                 }
             }
@@ -103,6 +118,15 @@ namespace VgInventory.Infra.WebApi.DataConnectors
                     return Task.CompletedTask;
                 }
             }
+            else if (typeof(TEntity) == typeof(UserVideoGame))
+            {
+                var item = (UserVideoGame)Convert.ChangeType(entity, typeof(UserVideoGame));
+                if (UserVideoGamesTable.Contains(item))
+                {
+                    UserVideoGamesTable.Remove(item);
+                    return Task.CompletedTask;
+                }
+            }
 
             return Task.FromException(new ArgumentException("Failed to delete."));
         }
@@ -122,6 +146,11 @@ namespace VgInventory.Infra.WebApi.DataConnectors
             else if (typeof(TEntity) == typeof(VideoGame))
             {
                 var entities = (List<TEntity>)Convert.ChangeType(VideoGamesTable, typeof(List<TEntity>));
+                return Task.FromResult<IEnumerable<TEntity>>(entities);
+            }
+            else if (typeof(TEntity) == typeof(UserVideoGame))
+            {
+                var entities = (List<TEntity>)Convert.ChangeType(UserVideoGamesTable, typeof(List<TEntity>));
                 return Task.FromResult<IEnumerable<TEntity>>(entities);
             }
 
@@ -147,6 +176,13 @@ namespace VgInventory.Infra.WebApi.DataConnectors
             else if (typeof(TEntity) == typeof(VideoGame))
             {
                 var table = (List<TEntity>)Convert.ChangeType(VideoGamesTable, typeof(List<TEntity>));
+                var func = expression.Compile();
+                var entities = table.Where(func).ToList();
+                return Task.FromResult<IEnumerable<TEntity>>(entities);
+            }
+            else if (typeof(TEntity) == typeof(UserVideoGame))
+            {
+                var table = (List<TEntity>)Convert.ChangeType(UserVideoGamesTable, typeof(List<TEntity>));
                 var func = expression.Compile();
                 var entities = table.Where(func).ToList();
                 return Task.FromResult<IEnumerable<TEntity>>(entities);
@@ -189,6 +225,21 @@ namespace VgInventory.Infra.WebApi.DataConnectors
                     int i = VideoGamesTable.IndexOf(videoGameToUpdate);
                     VideoGamesTable[i].Genre = item.Genre;
                     VideoGamesTable[i].Description = item.Description;
+                    return Task.CompletedTask;
+                }
+            }
+            else if (typeof(TEntity) == typeof(UserVideoGame))
+            {
+                var item = (UserVideoGame)Convert.ChangeType(entity, typeof(UserVideoGame));
+                var videoGameToUpdate = UserVideoGamesTable.Find((vg) =>
+                    vg.UserId.Equals(item.UserId) &&
+                    vg.VideoGameId.Equals(item.VideoGameId));
+                if (videoGameToUpdate != null)
+                {
+                    int i = UserVideoGamesTable.IndexOf(videoGameToUpdate);
+                    UserVideoGamesTable[i].IsCompleted = item.IsCompleted;
+                    UserVideoGamesTable[i].IsOwned = item.IsOwned;
+                    UserVideoGamesTable[i].IsWishListed = item.IsWishListed;
                     return Task.CompletedTask;
                 }
             }
