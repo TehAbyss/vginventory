@@ -6,6 +6,7 @@ import { LoadingPage } from "./components/LoadingPage";
 import Routes from './Routes';
 import history from "./utils/history";
 import './App.css';
+import Footer from './components/Footer.js';
 
 function App() {
   const { loading } = useAuth0();
@@ -25,6 +26,7 @@ function App() {
           <NavBar />
         </header>
         <Routes />
+        <Footer />
       </Router>
     </div>
   );
