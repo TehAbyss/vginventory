@@ -6,7 +6,7 @@ import { LoadingPage } from "./components/LoadingPage";
 import Routes from './Routes';
 import history from "./utils/history";
 import './App.css';
-import Footer from './components/Footer.js';
+import { Footer } from './components/Footer';
 
 function App() {
   const { loading } = useAuth0();

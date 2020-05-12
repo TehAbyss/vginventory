@@ -22,7 +22,7 @@ import React from "react";
 // reactstrap components
 import { Row, Container } from "reactstrap";
 
-function Footer() {
+export const Footer = () => {
   return (
     <footer className="footer footer-black footer-white">
       <Container>
@@ -66,5 +66,3 @@ function Footer() {
     </footer>
   );
 }
-
-export default Footer;
