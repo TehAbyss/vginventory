@@ -13,7 +13,7 @@ function App() {
 
   if (loading) {
     return (
-      <div class="center">
+      <div className="center">
         <LoadingPage type="spinningBubbles" color="grey" />
       </div>
     );

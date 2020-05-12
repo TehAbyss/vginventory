@@ -34,6 +34,7 @@ export const Footer = () => {
                   href="https://github.com/TehAbyss/vginventory"
                   target="_blank"
                 >
+                  <i className="fa fa-github" />
                   Git Hub
                 </a>
               </li>
