@@ -3,11 +3,18 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 
 import { Auth0Provider } from "./react-auth0-spa";
 import history from "./utils/history";
+
+// styles
+//import 'bootstrap/dist/css/bootstrap.min.css';
+import './styles/bootstrap.min.css';
+import './styles/paper-kit.css';
+// import "assets/css/paper-kit.min.css";
+// import "assets/css/paper-kit.css.map";
+import './styles/demo.css';
 
 // A function that routes the user to the right place
 // after login
