@@ -1,43 +1,132 @@
 import React from 'react';
-import { Navbar, Nav } from 'react-bootstrap';
-import { LinkContainer } from "react-router-bootstrap";
 import { useAuth0 } from "../react-auth0-spa";
+import classnames from "classnames";
+// reactstrap components
+import {
+  Button,
+  Collapse,
+  NavbarBrand,
+  Navbar,
+  NavItem,
+  NavLink,
+  Nav,
+  Container
+} from "reactstrap";
 
 export const NavBar = () => {
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
 
-  return (
-    <div className='App tc f3'>
-      <Navbar bg='dark' variant='dark' expand='lg'>
-          <LinkContainer to="/">
-            <Navbar.Brand>VGinventory</Navbar.Brand>
-          </LinkContainer>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <div>
-            {isAuthenticated && (
-                <Nav className='mr-auto'>
-                  <LinkContainer to="/members">
-                    <Nav.Link>Members</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/users">
-                    <Nav.Link>Profile</Nav.Link>
-                  </LinkContainer>
-                  <LinkContainer to="/videogames">
-                    <Nav.Link>Video Games</Nav.Link>
-                  </LinkContainer>
-                  <Nav.Link onClick={() => logout()}>Log out</Nav.Link>
-                </Nav>
-            )}
+  const [navbarColor, setNavbarColor] = React.useState("navbar-transparent");
+  const [navbarCollapse, setNavbarCollapse] = React.useState(false);
 
-            {!isAuthenticated && (
-              <Nav className='mr-auto'>
-                <Nav.Link onClick={() => loginWithRedirect({})}>Log in</Nav.Link>
-              </Nav>
-            )}
-          </div>
-        </Navbar.Collapse>
-      </Navbar>
-    </div>
+  const toggleNavbarCollapse = () => {
+    setNavbarCollapse(!navbarCollapse);
+    document.documentElement.classList.toggle("nav-open");
+  };
+
+  React.useEffect(() => {
+    const updateNavbarColor = () => {
+      if (
+        document.documentElement.scrollTop > 299 ||
+        document.body.scrollTop > 299
+      ) {
+        setNavbarColor("");
+      } else if (
+        document.documentElement.scrollTop < 300 ||
+        document.body.scrollTop < 300
+      ) {
+        setNavbarColor("navbar-transparent");
+      }
+    };
+
+    window.addEventListener("scroll", updateNavbarColor);
+
+    return function cleanup() {
+      window.removeEventListener("scroll", updateNavbarColor);
+    };
+  });
+
+  return (
+    <Navbar className={classnames("fixed-top", navbarColor)} expand="lg">
+      <Container>
+        <div className="navbar-translate">
+            <NavbarBrand
+              data-placement="bottom"
+              href="/"
+              title="Coded by Noobies"
+            >
+              VGinventory
+            </NavbarBrand>
+            <button
+              aria-expanded={navbarCollapse}
+              className={classnames("navbar-toggler navbar-toggler", {
+                toggled: navbarCollapse
+              })}
+              onClick={toggleNavbarCollapse}
+            >
+              <span className="navbar-toggler-bar bar1" />
+              <span className="navbar-toggler-bar bar2" />
+              <span className="navbar-toggler-bar bar3" />
+            </button>
+        </div>
+        <Collapse
+        className="justify-content-end"
+        navbar
+        isOpen={navbarCollapse}
+        >
+          {isAuthenticated && (
+            <Nav navbar>
+              <NavItem>
+                <NavLink
+                href="/members"
+                title="Member List"
+                >
+                  Members
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                href="/users"
+                title="Profile"
+                >
+                  Profile
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink
+                href="/videogames"
+                title="Video Game List"
+                >
+                  Video Games
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <Button
+                className="btn-round"
+                color="default"
+                onClick={() => logout()}
+                >
+                  Log out
+                </Button>
+              </NavItem>
+            </Nav>
+          )}
+
+          {!isAuthenticated && (
+            <Nav navbar>
+              <NavItem>
+                <Button
+                className="btn-round"
+                color="default"
+                onClick={() => loginWithRedirect({})}
+                >
+                  Log in
+                </Button>
+              </NavItem>
+            </Nav>
+          )}
+        </Collapse>
+      </Container>
+    </Navbar>
   );
 }
