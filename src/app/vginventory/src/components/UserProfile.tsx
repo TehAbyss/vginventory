@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { useVideoGames } from '../hooks/useVideoGames';
 import { VideoGameListProps } from '../models/iprops';
 import { userVideoGame } from '../models/iuserVideoGame';
+import { Container, Card, CardHeader, CardBody, CardText } from 'reactstrap';
 
 export const UserProfile = (props:any) => {
   const videoGameProps: VideoGameListProps = {
@@ -11,10 +12,10 @@ export const UserProfile = (props:any) => {
     userVideoGames: props.profile.userVideoGames
   }
   return (
-    <>
+    <div className="main">
       <UserComponent user={props.profile.user} />
       <VideoGamesComponent list={videoGameProps} />
-    </>
+    </div>
   )
 }
 
@@ -22,11 +23,17 @@ const UserComponent = (props:any) => {
   const { userObj } = useUserProfile(props.user);
 
   return (
-    <div>
-      <h1>{userObj.name}</h1>
-      <p>Member Since: {userObj.startDate.month} {userObj.startDate.year}</p>
-      <label>Bio:</label>
-      <p>{userObj.bio}</p>
+    <div className="section section-dark">
+      <Container>
+        <Card>
+          <CardHeader>{userObj.name}</CardHeader>
+          <CardBody>
+            <CardText>Member Since: {userObj.startDate.month} {userObj.startDate.year}</CardText>
+            <CardText>Bio:</CardText>
+            <CardText>{userObj.bio}</CardText>
+          </CardBody>
+        </Card>
+      </Container>
     </div>
   )
 }
@@ -39,8 +46,12 @@ const VideoGamesComponent = (props:any) => {
     return <div key={vgvalue.title}><VideoGame game={vgvalue} userGame={userGame} /></div>
   })
   return (
-    <div>
-      {videoGameList}
+    <div className="section section-text">
+      <Container>
+        <div className="text-justified">
+          {videoGameList}
+        </div>
+      </Container>
     </div>
   )
 }

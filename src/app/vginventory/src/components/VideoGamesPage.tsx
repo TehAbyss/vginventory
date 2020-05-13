@@ -1,6 +1,6 @@
 import React from 'react';
 import { useVideoGames } from '../hooks/useVideoGames';
-import { Container, Card, CardHeader, CardBody, CardText, CardFooter, Button } from "reactstrap";
+import { Container, Card, CardHeader, CardBody, CardText, CardFooter, Button, CardDeck } from "reactstrap";
 import './../styles/videoGames.css';
 
 export const VideoGamesPage = (props: any) => {
@@ -10,11 +10,11 @@ export const VideoGamesPage = (props: any) => {
         <div className="main">
             <div className="section section-dark">
                 <Container>
-                    <div className="VG-div">
+                    <CardDeck>
                         {videoGames.map((vg) => (
                             <div key={vg.title}>
                                 <Card className="VG-card">
-                                    <CardHeader as="h5">{vg.title}</CardHeader>
+                                    <CardHeader>{vg.title}</CardHeader>
                                     <CardBody className="VG-card-body">
                                         <CardText className="VG-card-text">{vg.description}</CardText>
                                     </CardBody>
@@ -22,7 +22,7 @@ export const VideoGamesPage = (props: any) => {
                                 </Card>
                             </div>
                         ))}
-                    </div>
+                    </CardDeck>
                 </Container>
             </div>
         </div>
