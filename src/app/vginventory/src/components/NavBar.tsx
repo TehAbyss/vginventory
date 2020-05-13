@@ -53,7 +53,6 @@ export const NavBar = () => {
             <NavbarBrand
               data-placement="bottom"
               href="/"
-              target="_blank"
               title="Coded by Noobies"
             >
               VGinventory
