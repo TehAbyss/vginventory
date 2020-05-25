@@ -78,14 +78,6 @@ export const NavBar = () => {
             <Nav navbar>
               <NavItem>
                 <NavLink
-                href="/members"
-                title="Member List"
-                >
-                  Members
-                </NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink
                 href="/users"
                 title="Profile"
                 >

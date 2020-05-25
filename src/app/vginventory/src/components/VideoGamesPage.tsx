@@ -4,36 +4,10 @@ import { Container, Card, CardHeader, CardBody, CardText, CardFooter, Button, Ca
 import './../styles/videoGames.css';
 
 export const VideoGamesPage = (props: any) => {
-    const { videoGames } = useVideoGames(props.games);
-    let pageHeader = React.createRef<HTMLDivElement>();
-
-    React.useEffect(() => {
-        if (window.innerWidth < 991) {
-        const updateScroll = () => {
-            let windowScrollTop = window.pageYOffset / 3;
-            if (pageHeader.current) {
-                pageHeader.current.style.transform =
-                "translate3d(0," + windowScrollTop + "px,0)";
-            }
-        };
-        window.addEventListener("scroll", updateScroll);
-        return function cleanup() {
-            window.removeEventListener("scroll", updateScroll);
-        };
-        }
-    });
+    const { videoGames } = useVideoGames(props);
 
     return (
-        <>
-            <div
-                className="page-header page-header-xs section-dark"
-                style={{
-                backgroundImage:
-                    "url(" + require("../img/daniel-olahh.jpg") + ")"
-                }}
-                data-parallax={true}
-                ref={pageHeader} />
-            
+        <>            
             <div className="section section-dark">
                 <Container>
                     <div className="title">
