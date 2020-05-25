@@ -58,14 +58,14 @@ export function useUserProfile(props: any) {
 
             if (response.data.length > 0) {
                 const data = response.data[0];
-
+                
                 let readUser : user = {
                     id: data.id,
                     email: data.email,
                     name: data.userName,
                     bio: data.bio,
                     avatarUrl: data.avatarUrl,
-                    startDate: data.startDate
+                    startDate: new Date(data.startDate)
                 };
                 setUserProfile(readUser);
             }
