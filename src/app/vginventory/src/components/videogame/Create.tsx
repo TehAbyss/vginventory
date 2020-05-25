@@ -12,6 +12,7 @@ export const VideoGameCreate = () => {
         removeGenre,
         description,
         updateDescription,
+        updateReleaseDate,
         submitHandler
     } = useCreateVideoGame();
 
@@ -46,7 +47,7 @@ export const VideoGameCreate = () => {
                         <FormGroup>
                             <Label className="description" for="releasedate">Release Date</Label>
                             <InputGroup className="date" id="datetimepicker">
-                                <Input type="date" id="releasedate" />
+                                <Input type="date" id="releasedate" onChange={updateReleaseDate} />
                                 <InputGroupAddon addonType="append">
                                     <InputGroupText>
                                         <span className="glyphicon glyphicon-calendar">

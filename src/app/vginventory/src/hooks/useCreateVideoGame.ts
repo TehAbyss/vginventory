@@ -19,7 +19,12 @@ export function useCreateVideoGame() {
     }
 
     const updateGenre = (event:any, idx:number) => {
-
+        const newGenres = genres.map((genre, sidx) => {
+            if (idx !== sidx) return genre;
+            return event.target.value;
+        });
+      
+        setGenres(newGenres);
     }
 
     const removeGenre = (idx:number) => {
@@ -48,6 +53,7 @@ export function useCreateVideoGame() {
         removeGenre,
         description,
         updateDescription,
+        updateReleaseDate,
         submitHandler
     }
 }
