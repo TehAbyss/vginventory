@@ -9,12 +9,12 @@ export const VideoGamesPage = (props: any) => {
         <>            
             <div className="section section-dark">
                 <Container>
-                    <div className="title">
-                        <h2>Video Games</h2>
+                    <div className="title text-center">
+                        <h1>Video Games</h1>
                     </div>
                     <Row>
                         <Col md="8">
-                            <Button href="" color="default">Add video Game</Button>
+                            <Button href="/videogames/new" color="default">Add video Game</Button>
                         </Col>
                     </Row>
                     <CardDeck>

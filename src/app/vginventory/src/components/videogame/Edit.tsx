@@ -9,7 +9,9 @@ export const VideoGameEdit = (props: any) => {
         <div className="main">
             <div className="section section-dark">
                 <Container>
-                    <h1>{videogame.title}</h1>
+                    <div className="title">
+                        <h1>{videogame.title}</h1>
+                    </div>
                     <Form>
                         <FormGroup>
                             <Label for="description">Description:</Label>
