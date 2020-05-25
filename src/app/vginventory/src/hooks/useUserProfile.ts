@@ -1,5 +1,5 @@
 import { baseApiUrl } from '../config';
-import { getEmptyDate, getMonthName } from '../models/idate';
+import { getMonthName } from '../models/idate';
 import { user } from '../models/iuser';
 import { useState, useEffect } from 'react';
 
@@ -14,7 +14,7 @@ export function useUserProfile(props: any) {
         name: '',
         bio: '',
         avatarUrl: '',
-        startDate: getEmptyDate()
+        startDate: new Date()
     };
     const [userProfile, setUserProfile] = useState<user>(currentUser);
 
@@ -59,20 +59,13 @@ export function useUserProfile(props: any) {
             if (response.data.length > 0) {
                 const data = response.data[0];
 
-                let startDate = getEmptyDate();
-                let jsDate = new Date(data.startDate);
-                startDate.date = jsDate.toDateString();
-                startDate.month = getMonthName(jsDate.getMonth());
-                startDate.year = jsDate.getFullYear().toString();
-                startDate.epoch = Math.floor(jsDate.getTime() / 1000);
-
                 let readUser : user = {
                     id: data.id,
                     email: data.email,
                     name: data.userName,
                     bio: data.bio,
                     avatarUrl: data.avatarUrl,
-                    startDate: startDate
+                    startDate: data.startDate
                 };
                 setUserProfile(readUser);
             }

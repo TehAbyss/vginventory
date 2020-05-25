@@ -1,33 +1,62 @@
 import React from 'react';
-import { Container, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Container, Button, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
+import { useCreateVideoGame } from '../../hooks/useCreateVideoGame';
 
-export const VideoGameCreate = (props: any) => {
-    
+export const VideoGameCreate = () => {
+    const {
+        title,
+        updateTitle,
+        genres,
+        addGenre,
+        updateGenre,
+        removeGenre,
+        description,
+        updateDescription,
+        submitHandler
+    } = useCreateVideoGame();
+
     return (
         <div className="main">
             <div className="section section-dark">
                 <Container>
                     <div className="title text-center">
-                        <h1>Add a Video Game</h1>
+                        <h2>Add a Video Game</h2>
                     </div>
-                    <Form>
+                    <Form onSubmit={submitHandler}>
                         <FormGroup>
-                            <Label for="title">Title</Label>
-                            <Input type="text" id="title" />
+                            <Label className="description" for="title">Title</Label>
+                            <Input type="text" id="title" onChange={updateTitle} value={title} />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="genre">Genre</Label>
-                            <Input type="text" id="genre" />
+                            <legend className="description">Genre</legend>
+                            {genres.map((genre, idx) => (
+                                <InputGroup key={idx}>
+                                    <Input type="text" placeholder="New Genre" value={genre} onChange={(event) => updateGenre(event, idx)} />
+                                    <InputGroupAddon addonType="append">
+                                        <Button className="btn-round" color="danger" type="button" onClick={() => removeGenre(idx)}> - </Button>
+                                    </InputGroupAddon>
+                                </InputGroup>
+                            ))}
+                            <Button type="button" color="default" onClick={addGenre}>Add Genre</Button>
                         </FormGroup>
                         <FormGroup>
-                            <Label for="description">Description</Label>
-                            <Input type="textarea" id="description" />
+                            <Label className="description" for="description">Description</Label>
+                            <Input type="textarea" id="description" value={description} onChange={updateDescription} />
                         </FormGroup>
                         <FormGroup>
-                            <Label for="releasedate">Release Date</Label>
-                            <Input type="date" id="releasedate" placeholder="date placeholder" />
+                            <Label className="description" for="releasedate">Release Date</Label>
+                            <InputGroup className="date" id="datetimepicker">
+                                <Input type="date" id="releasedate" />
+                                <InputGroupAddon addonType="append">
+                                    <InputGroupText>
+                                        <span className="glyphicon glyphicon-calendar">
+                                            <i aria-hidden={true} className="fa fa-calendar" />
+                                        </span>
+                                    </InputGroupText>
+                                </InputGroupAddon>
+                            </InputGroup>
                         </FormGroup>
-                        <Button>Submit</Button>
+                        <Button type="submit">Submit</Button>
                     </Form>
                 </Container>
             </div>
