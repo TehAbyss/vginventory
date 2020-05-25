@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { baseApiUrl } from '../config';
 import { videoGame } from '../models/ivideoGame';
+import { useHistory } from 'react-router-dom';
 
 const axios = require('axios').default;
 
@@ -8,7 +9,10 @@ export function useCreateVideoGame() {
     const [title, setTitle] = useState("");
     const [genres, setGenres] = useState<string[]>([]);
     const [description, setDescription] = useState("");
-    const [releaseDate, setReleaseDate] = useState<Date>();
+    const [releaseDate, setReleaseDate] = useState<Date>(new Date());
+    
+    const url = baseApiUrl.concat(`/api/videogames`);
+    let history = useHistory();
 
     const updateTitle = (event:any) => {
         setTitle(event.target.value);
@@ -40,7 +44,19 @@ export function useCreateVideoGame() {
         setReleaseDate(date);
     }
 
+    const createVideoGame = async (videogame:videoGame) => {
+        try {
+            await axios.post(url,videogame);
+            history.push(`/videogames/${videogame.title}`);
+        }
+        catch (error) {
+            console.log(error);
+        }
+    }
+
     const submitHandler = (event:any) => {
+        const vg:videoGame = {id:'', title: title, description: description, genre: genres, releaseDate: releaseDate};
+        createVideoGame(vg);
         event.preventDefault();
     }
 
