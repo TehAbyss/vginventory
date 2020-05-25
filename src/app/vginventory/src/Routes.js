@@ -3,9 +3,9 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import { Home } from "./components/Home";
 import { NotFound } from "./components/NotFound";
 import { UserProfile } from "./components/UserProfile";
-import { VideoGameEdit } from "./components/VideoGameEdit";
-import { VideoGameProfile } from "./components/VideoGameProfile";
-import { VideoGamesPage } from "./components/VideoGamesPage";
+import { VideoGameEdit } from "./components/videogame/Edit";
+import { VideoGameProfile } from "./components/videogame/Profile";
+import { VideoGamesPage } from "./components/videogame/ListOfGames";
 import { useAuth0 } from "./react-auth0-spa";
 import { useUserProfile } from "./hooks/useUserProfile";
 

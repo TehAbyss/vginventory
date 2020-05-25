@@ -9,12 +9,10 @@ import { Auth0Provider } from "./react-auth0-spa";
 import history from "./utils/history";
 
 // styles
-//import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/bootstrap.min.css';
-import './styles/paper-kit.css';
-// import "assets/css/paper-kit.min.css";
-// import "assets/css/paper-kit.css.map";
+import './styles/paper-kit.min.css';
 import './styles/demo.css';
+import './styles/videoGames.css';
 
 // A function that routes the user to the right place
 // after login

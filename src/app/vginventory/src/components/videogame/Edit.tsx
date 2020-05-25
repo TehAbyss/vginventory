@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUpdateVideoGame } from '../hooks/useUpdateVideoGame';
+import { useUpdateVideoGame } from '../../hooks/useUpdateVideoGame';
 import { Container, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 export const VideoGameEdit = (props: any) => {

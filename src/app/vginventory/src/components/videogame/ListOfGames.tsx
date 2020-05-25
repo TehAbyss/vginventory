@@ -1,7 +1,6 @@
 import React from 'react';
-import { useVideoGames } from '../hooks/useVideoGames';
+import { useVideoGames } from '../../hooks/useVideoGames';
 import { Container, Card, CardHeader, CardBody, CardText, CardFooter, Button, CardDeck, Row, Col } from "reactstrap";
-import './../styles/videoGames.css';
 
 export const VideoGamesPage = (props: any) => {
     const { videoGames } = useVideoGames(props);
