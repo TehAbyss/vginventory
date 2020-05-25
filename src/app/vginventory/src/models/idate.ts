@@ -6,10 +6,26 @@ export interface date {
 };
 
 export function getMonthName(month: number) {
-    var options = { month: 'long'};
-    return new Intl.DateTimeFormat('en-US', options).format(month);
+    if (month < 0 || month > 11) {
+        return '';
+    }
+    return monthName[month];
 };
 
 export function getEmptyDate() {
     return {date: '', month: '', year: '', epoch: -1};
 }
+
+const monthName = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December"];

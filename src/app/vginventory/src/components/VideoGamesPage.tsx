@@ -4,7 +4,7 @@ import { Container, Card, CardHeader, CardBody, CardText, CardFooter, Button, Ca
 import './../styles/videoGames.css';
 
 export const VideoGamesPage = (props: any) => {
-    const { videoGames } = useVideoGames(props.games);
+    const { videoGames } = useVideoGames(props);
 
     return (
         <div className="main">
