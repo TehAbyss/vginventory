@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { userVideoGame } from '../models/iuserVideoGame';
 import { useUserVideoGames } from '../hooks/useUserVideoGames';
 import { useVideoGames } from '../hooks/useVideoGames';
+import { getMonthName } from '../models/idate';
 
 export const UserProfile = (props: any) => {
   const { userVideoGames } = useUserVideoGames(props);
@@ -26,7 +27,7 @@ const UserComponent = (props:any) => {
           <CardHeader>{userProfile.name}</CardHeader>
           <CardBody>
             <CardText>Email: {userProfile.email}</CardText>
-            <CardText>Member Since: {userProfile.startDate.month} {userProfile.startDate.year}</CardText>
+            <CardText>Member Since: {getMonthName(userProfile.startDate.getMonth())} {userProfile.startDate.getUTCFullYear()}</CardText>
             <CardText>Bio:</CardText>
             <CardText>{userProfile.bio}</CardText>
           </CardBody>

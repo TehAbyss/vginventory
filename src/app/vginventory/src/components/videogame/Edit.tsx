@@ -1,5 +1,5 @@
 import React from 'react';
-import { useUpdateVideoGame } from '../hooks/useUpdateVideoGame';
+import { useUpdateVideoGame } from '../../hooks/useUpdateVideoGame';
 import { Container, Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 export const VideoGameEdit = (props: any) => {
@@ -9,7 +9,9 @@ export const VideoGameEdit = (props: any) => {
         <div className="main">
             <div className="section section-dark">
                 <Container>
-                    <h1>{videogame.title}</h1>
+                    <div className="title">
+                        <h1>{videogame.title}</h1>
+                    </div>
                     <Form>
                         <FormGroup>
                             <Label for="description">Description:</Label>

@@ -1,15 +1,22 @@
 import React from 'react';
-import { useVideoGames } from '../hooks/useVideoGames';
-import { Container, Card, CardHeader, CardBody, CardText, CardFooter, Button, CardDeck } from "reactstrap";
-import './../styles/videoGames.css';
+import { useVideoGames } from '../../hooks/useVideoGames';
+import { Container, Card, CardHeader, CardBody, CardText, CardFooter, Button, CardDeck, Row, Col } from "reactstrap";
 
 export const VideoGamesPage = (props: any) => {
     const { videoGames } = useVideoGames(props);
 
     return (
-        <div className="main">
+        <>            
             <div className="section section-dark">
                 <Container>
+                    <div className="title text-center">
+                        <h1>Video Games</h1>
+                    </div>
+                    <Row>
+                        <Col md="8">
+                            <Button href="/videogames/new" color="default">Add video Game</Button>
+                        </Col>
+                    </Row>
                     <CardDeck>
                         {videoGames.map((vg) => (
                             <div key={vg.title}>
@@ -25,6 +32,6 @@ export const VideoGamesPage = (props: any) => {
                     </CardDeck>
                 </Container>
             </div>
-        </div>
+        </>
     )
 };
