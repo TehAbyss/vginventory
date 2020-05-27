@@ -7,7 +7,10 @@ const axios = require('axios').default;
 
 export function useUpdateVideoGame(vg: videoGame) {
     const [videogame, setVideoGame] = useState<videoGame>(vg);
+    const [genres, setGenres] = useState<string[]>(vg.genre);
     const [description, setDescription] = useState<string>(vg.description);
+    const [releaseDate, setReleaseDate] = useState<Date>(new Date(vg.releaseDate));
+    
     const url = baseApiUrl.concat(`/api/videogames`);
     let history = useHistory();
 
@@ -22,25 +25,61 @@ export function useUpdateVideoGame(vg: videoGame) {
         }
     };
 
-    function onDescriptionChange(event:any) {
+    const addGenre = () => {
+        setGenres(genres => [...genres, ""]);
+    }
+
+    const updateGenre = (event:any, idx:number) => {
+        const newGenres = genres.map((genre, sidx) => {
+            if (idx !== sidx) return genre;
+            return event.target.value;
+        });
+      
+        setGenres(newGenres);
+
+        event.preventDefault();
+    }
+
+    const removeGenre = (idx:number) => {
+        setGenres(genres => genres.filter((g, sidx) => idx !== sidx));
+    }
+
+    const updateDescription = (event:any) => {
         if (event.target.value !== description) {
             setDescription(event.target.value);
         }
         event.preventDefault();
     }
 
-    function onUpdate(event:any) {
-        let game: videoGame = videogame;
-        game.description = description;
-        setVideoGame(game);
+    const updateReleaseDate = (date:any) => {
+        if (date.toDate() !== releaseDate) {
+            setReleaseDate(date.toDate());
+        }
+    }
+
+    const submitHandler = (event:any) => {
+        setVideoGame({
+            id: videogame.id, 
+            title: videogame.title, 
+            genre: genres, 
+            description: description, 
+            releaseDate: releaseDate
+        });
         updateVideoGame();
+        
         event.preventDefault();
     }
 
     return {
         videogame,
+        genres,
+        addGenre,
+        updateGenre,
+        removeGenre,
         description,
-        onDescriptionChange,
-        onUpdate
+        updateDescription,
+        releaseDate,
+        updateReleaseDate,
+        submitHandler
     };
 };

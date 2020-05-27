@@ -16,6 +16,8 @@ export function useCreateVideoGame() {
 
     const updateTitle = (event:any) => {
         setTitle(event.target.value);
+        
+        event.preventDefault();
     }
 
     const addGenre = () => {
@@ -29,6 +31,8 @@ export function useCreateVideoGame() {
         });
       
         setGenres(newGenres);
+
+        event.preventDefault();
     }
 
     const removeGenre = (idx:number) => {
@@ -37,11 +41,15 @@ export function useCreateVideoGame() {
 
     const updateDescription = (event:any) => {
         setDescription(event.target.value);
+
+        event.preventDefault();
     }
 
     const updateReleaseDate = (event:any) => {
         const date:Date = event.target.value;
         setReleaseDate(date);
+
+        event.preventDefault();
     }
 
     const createVideoGame = async (videogame:videoGame) => {
@@ -57,6 +65,7 @@ export function useCreateVideoGame() {
     const submitHandler = (event:any) => {
         const vg:videoGame = {id:'', title: title, description: description, genre: genres, releaseDate: releaseDate};
         createVideoGame(vg);
+        
         event.preventDefault();
     }
 
