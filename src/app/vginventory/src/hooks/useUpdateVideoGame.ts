@@ -14,11 +14,10 @@ export function useUpdateVideoGame(vg: videoGame) {
     const url = baseApiUrl.concat(`/api/videogames`);
     let history = useHistory();
 
-    const updateVideoGame = async () => {
+    const updateVideoGame = async (vg:videoGame) => {
         try {
-            const response  = await axios.put(url,videogame);
+            const response  = await axios.put(url,vg);
             setVideoGame(response.data);
-            console.log(videogame);
             history.push(`/videogames/${videogame.title}`);
         }
         catch (error) {
@@ -31,14 +30,14 @@ export function useUpdateVideoGame(vg: videoGame) {
     }
 
     const updateGenre = (event:any, idx:number) => {
+        event.preventDefault();
+
         const newGenres = genres.map((genre, sidx) => {
             if (idx !== sidx) return genre;
             return event.target.value;
         });
       
         setGenres(newGenres);
-
-        event.preventDefault();
     }
 
     const removeGenre = (idx:number) => {
@@ -46,31 +45,24 @@ export function useUpdateVideoGame(vg: videoGame) {
     }
 
     const updateDescription = (event:any) => {
-        if (event.target.value !== description) {
-            setDescription(event.target.value);
-            console.log(description);
-        }
         event.preventDefault();
+        setDescription(event.target.value);
     }
 
     const updateReleaseDate = (date:any) => {
-        if (date.toDate() !== releaseDate) {
-            setReleaseDate(date.toDate());
-        }
+        setReleaseDate(date.toDate());
     }
 
     const submitHandler = (event:any) => {
-        setVideoGame({
-            id: videogame.id, 
-            title: videogame.title, 
-            genre: genres, 
-            description: description, 
-            releaseDate: releaseDate
-        });
-        console.log(videogame);
-        updateVideoGame();
-        
         event.preventDefault();
+        let vg = {
+            ...videogame,
+            description: description,
+            genre: genres,
+            releaseDate: releaseDate
+        };
+
+        updateVideoGame(vg);
     }
 
     return {
