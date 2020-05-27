@@ -2,7 +2,6 @@ import React from 'react';
 import { useGetVideoGame } from "../../hooks/useGetVideoGame";
 import { useParams, useHistory } from "react-router-dom";
 import { Container, Button, Row, Col } from 'reactstrap';
-import { getMonthName } from '../../models/idate';
 
 export const VideoGameProfile = () => {
     let { title } = useParams();
