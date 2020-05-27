@@ -1,7 +1,8 @@
 import React from 'react';
 import { useGetVideoGame } from "../../hooks/useGetVideoGame";
 import { useParams, useHistory } from "react-router-dom";
-import { Container, Button } from 'reactstrap';
+import { Container, Button, Row, Col } from 'reactstrap';
+import { getMonthName } from '../../models/idate';
 
 export const VideoGameProfile = () => {
     let { title } = useParams();
@@ -14,10 +15,28 @@ export const VideoGameProfile = () => {
         <div className="main">
             <div className="section section-dark">
                 <Container>
-                    <h1>{videogame.title}</h1>
-                    <h3>{videogame.description}</h3>
-                    <br/>
-                    <Button onClick={() => history.push(`/videogames/${videogame.title}/edit`, {game: videogame})}>Edit</Button>
+                    <Row>
+                        <div className="title">
+                            <h1>{videogame.title}</h1>
+                        </div>
+                    </Row>
+                    <Row>
+                        <Col md="2"><h4 className="description">Released</h4></Col>
+                        <Col><h4>{videogame.releaseDate}</h4></Col>
+                    </Row>
+                    <Row>
+                        <Col md="2"><h4 className="description">Description</h4></Col>
+                        <Col><p>{videogame.description}</p></Col>
+                    </Row>
+                    <Row>
+                        <Col md="2"><h4 className="description">Genre</h4></Col>
+                        {videogame.genre.map((genre, idx) => (
+                            <Col key={idx}><h4>{genre}</h4></Col>
+                        ))}
+                    </Row>
+                    <Row>
+                        <Button onClick={() => history.push(`/videogames/${videogame.title}/edit`, {game: videogame})}>Edit</Button>
+                    </Row>
                 </Container>
             </div>
         </div>

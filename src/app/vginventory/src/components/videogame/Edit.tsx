@@ -25,7 +25,7 @@ export const VideoGameEdit = (props: any) => {
                         <h1>{videogame.title}</h1>
                     </div>
                     <Form onSubmit={submitHandler}>
-                    <FormGroup>
+                        <FormGroup>
                             <legend className="description">Genre</legend>
                             {genres.map((genre, idx) => (
                                 <InputGroup key={idx}>
@@ -54,7 +54,7 @@ export const VideoGameEdit = (props: any) => {
                                 </InputGroupAddon>
                             </InputGroup>
                         </FormGroup>
-                        <Button>Update</Button>
+                        <Button type="submit">Update</Button>
                     </Form>
                 </Container>
             </div>

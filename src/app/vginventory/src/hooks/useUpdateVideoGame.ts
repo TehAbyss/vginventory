@@ -18,6 +18,7 @@ export function useUpdateVideoGame(vg: videoGame) {
         try {
             const response  = await axios.put(url,videogame);
             setVideoGame(response.data);
+            console.log(videogame);
             history.push(`/videogames/${videogame.title}`);
         }
         catch (error) {
@@ -47,6 +48,7 @@ export function useUpdateVideoGame(vg: videoGame) {
     const updateDescription = (event:any) => {
         if (event.target.value !== description) {
             setDescription(event.target.value);
+            console.log(description);
         }
         event.preventDefault();
     }
@@ -65,6 +67,7 @@ export function useUpdateVideoGame(vg: videoGame) {
             description: description, 
             releaseDate: releaseDate
         });
+        console.log(videogame);
         updateVideoGame();
         
         event.preventDefault();

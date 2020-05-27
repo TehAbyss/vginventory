@@ -1,4 +1,5 @@
 import React from 'react';
+import DateTime from 'react-datetime';
 import { Container, Button, Form, FormGroup, Label, Input, InputGroup, InputGroupAddon, InputGroupText } from 'reactstrap';
 import { useCreateVideoGame } from '../../hooks/useCreateVideoGame';
 
@@ -47,7 +48,7 @@ export const VideoGameCreate = () => {
                         <FormGroup>
                             <Label className="description" for="releasedate">Release Date</Label>
                             <InputGroup className="date" id="datetimepicker">
-                                <Input type="date" id="releasedate" onChange={updateReleaseDate} />
+                            <DateTime dateFormat="YYYY-MM-DD" timeFormat={false} onChange={updateReleaseDate} />
                                 <InputGroupAddon addonType="append">
                                     <InputGroupText>
                                         <span className="glyphicon glyphicon-calendar">
