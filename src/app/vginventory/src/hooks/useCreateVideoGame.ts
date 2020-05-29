@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { baseApiUrl } from '../config';
 import { videoGame } from '../models/ivideoGame';
 import { useHistory } from 'react-router-dom';
+import moment from 'moment';
 
 const axios = require('axios').default;
 
@@ -15,6 +16,7 @@ export function useCreateVideoGame() {
     let history = useHistory();
 
     const updateTitle = (event:any) => {
+        event.preventDefault();
         setTitle(event.target.value);
     }
 
@@ -23,6 +25,7 @@ export function useCreateVideoGame() {
     }
 
     const updateGenre = (event:any, idx:number) => {
+        event.preventDefault();
         const newGenres = genres.map((genre, sidx) => {
             if (idx !== sidx) return genre;
             return event.target.value;
@@ -36,12 +39,14 @@ export function useCreateVideoGame() {
     }
 
     const updateDescription = (event:any) => {
+        event.preventDefault();
         setDescription(event.target.value);
     }
 
-    const updateReleaseDate = (event:any) => {
-        const date:Date = event.target.value;
-        setReleaseDate(date);
+    const updateReleaseDate = (date:any) => {
+        if (moment.isMoment(date)) {
+            setReleaseDate(date.toDate());
+        }
     }
 
     const createVideoGame = async (videogame:videoGame) => {
@@ -55,9 +60,15 @@ export function useCreateVideoGame() {
     }
 
     const submitHandler = (event:any) => {
-        const vg:videoGame = {id:'', title: title, description: description, genre: genres, releaseDate: releaseDate};
-        createVideoGame(vg);
         event.preventDefault();
+        const vg:videoGame = {
+            id:'', 
+            title: title, 
+            description: description, 
+            genre: genres, 
+            releaseDate: releaseDate
+        };
+        createVideoGame(vg);
     }
 
     return {
