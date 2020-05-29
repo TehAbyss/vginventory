@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { baseApiUrl } from '../config';
 import { useHistory } from 'react-router-dom';
 import { videoGame } from '../models/ivideoGame';
+import moment from 'moment';
 
 const axios = require('axios').default;
 
@@ -50,7 +51,9 @@ export function useUpdateVideoGame(vg: videoGame) {
     }
 
     const updateReleaseDate = (date:any) => {
-        setReleaseDate(date.toDate());
+        if (moment.isMoment(date)) {
+            setReleaseDate(date.toDate());
+        }
     }
 
     const submitHandler = (event:any) => {

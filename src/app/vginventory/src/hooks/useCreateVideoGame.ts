@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { baseApiUrl } from '../config';
 import { videoGame } from '../models/ivideoGame';
 import { useHistory } from 'react-router-dom';
+import moment from 'moment';
 
 const axios = require('axios').default;
 
@@ -42,10 +43,10 @@ export function useCreateVideoGame() {
         setDescription(event.target.value);
     }
 
-    const updateReleaseDate = (event:any) => {
-        event.preventDefault();
-        const date:Date = event.target.value;
-        setReleaseDate(date);
+    const updateReleaseDate = (date:any) => {
+        if (moment.isMoment(date)) {
+            setReleaseDate(date.toDate());
+        }
     }
 
     const createVideoGame = async (videogame:videoGame) => {
