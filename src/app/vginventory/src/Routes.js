@@ -9,6 +9,7 @@ import { VideoGamesPage } from "./components/videogame/ListOfGames";
 import { useAuth0 } from "./react-auth0-spa";
 import { useUserProfile } from "./hooks/useUserProfile";
 import { VideoGameCreate } from "./components/videogame/Create";
+import { VideoGamesRawg } from "./components/videogame/VideoGamesRawg.tsx";
 
 export default function Routes() {
   const { isAuthenticated, user } = useAuth0();
@@ -31,6 +32,7 @@ export default function Routes() {
           <Route path="/videogames/new" component={VideoGameCreate} />
           <Route exact path="/videogames/:title/edit" component={(props) => <VideoGameEdit {...props} />} />
           <Route path="/videogames/:title" component={VideoGameProfile} />
+          <Route path="/videogamesrawg" component={() => <VideoGamesRawg />} />
           <Route component={NotFound} />
         </Switch>
       )}

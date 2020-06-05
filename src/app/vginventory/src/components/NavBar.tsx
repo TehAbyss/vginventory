@@ -93,6 +93,14 @@ export const NavBar = () => {
                 </NavLink>
               </NavItem>
               <NavItem>
+                <NavLink
+                href="/videogamesrawg"
+                title="Video Game List from Rawg"
+                >
+                  Video Games Rawg
+                </NavLink>
+              </NavItem>
+              <NavItem>
                 <Button
                 className="btn-round"
                 color="default"
