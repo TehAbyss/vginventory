@@ -18,15 +18,6 @@ export const VideoGamesRawg = (props: any) => {
                     </Row>
                     <Row>
                         <Col>
-                            <Button color="default" onClick={() => queryGames(games.previous)}>Previous</Button>
-                        </Col>
-                        <Col xs="auto"> </Col>
-                        <Col className="text-right">
-                            <Button color="default" onClick={() => queryGames(games.next)}>Next</Button>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
                             <CardDeck>
                                 {games.results.map((vg:any) => (
                                     <div key={vg.name}>
@@ -39,6 +30,15 @@ export const VideoGamesRawg = (props: any) => {
                                     </div>
                                 ))}
                             </CardDeck>
+                        </Col>
+                    </Row>
+                    <Row>
+                        <Col>
+                            <Button color="default" onClick={() => queryGames(games.previous)}>Previous</Button>
+                        </Col>
+                        <Col xs="auto"> </Col>
+                        <Col className="text-right">
+                            <Button color="default" onClick={() => queryGames(games.next)}>Next</Button>
                         </Col>
                     </Row>
                     <Row>

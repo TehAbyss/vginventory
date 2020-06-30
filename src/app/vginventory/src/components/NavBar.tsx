@@ -84,20 +84,22 @@ export const NavBar = () => {
                   Profile
                 </NavLink>
               </NavItem>
-              <NavItem>
-                <NavLink
-                href="/videogames"
-                title="Video Game List"
-                >
-                  Video Games
-                </NavLink>
-              </NavItem>
+              {/*
+                <NavItem>
+                  <NavLink
+                  href="/videogames"
+                  title="Video Game List"
+                  >
+                    Video Games
+                  </NavLink>
+                </NavItem>
+              */}
               <NavItem>
                 <NavLink
                 href="/videogamesrawg"
                 title="Video Game List from Rawg"
                 >
-                  Video Games Rawg
+                  Video Games
                 </NavLink>
               </NavItem>
               <NavItem>

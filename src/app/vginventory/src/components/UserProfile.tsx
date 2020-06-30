@@ -1,6 +1,5 @@
 import React from 'react';
 import { Container, Card, CardHeader, CardBody, CardText } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import { userVideoGame } from '../models/iuserVideoGame';
 import { useUserVideoGames } from '../hooks/useUserVideoGames';
 import { useVideoGames } from '../hooks/useVideoGames';
@@ -63,10 +62,13 @@ const VideoGamesComponent = (props:any) => {
 const VideoGame = (props: any) => {
   return (
     <div>
-      <h2><Link to={`/videogames/${props.game.title}`}>{props.game.title}</Link></h2>
-      <p hidden={!props.userGame.isOwned}>Own</p>
-      <p hidden={!props.userGame.isCompleted}>Completed</p>
-      <p hidden={!props.userGame.isWishListed}>Wishlist</p>
+      <p>Under Construction!</p>
+      {/*
+        <h2><Link to={`/videogames/${props.game.title}`}>{props.game.title}</Link></h2>
+        <p hidden={!props.userGame.isOwned}>Own</p>
+        <p hidden={!props.userGame.isCompleted}>Completed</p>
+        <p hidden={!props.userGame.isWishListed}>Wishlist</p>
+      */}
     </div>
   )
 };
