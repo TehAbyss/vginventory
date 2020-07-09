@@ -19,6 +19,8 @@ import {
   Row,
   Col
 } from "reactstrap";
+import { useHistory } from 'react-router-dom';
+import { user } from '../models/iuser';
 
 export const UserProfile = (props: any) => {
   const { userVideoGames } = useUserVideoGames(props);
@@ -33,7 +35,8 @@ export const UserProfile = (props: any) => {
 }
 
 const UserComponent = (props:any) => {
-  //const userProfile = props.userProfile;
+  const userProfile:user = props.userProfile;
+  let history = useHistory();
   const [activeTab, setActiveTab] = React.useState("1");
 
   const toggle = (tab:any) => {
@@ -58,27 +61,24 @@ const UserComponent = (props:any) => {
           <img
             alt="..."
             className="img-circle img-no-padding img-responsive"
-            src={require("../img/joe-gardner-2.jpg")}
+            src={userProfile.avatarUrl}
           />
         </div>
         <div className="name">
           <h4 className="title">
-            Jane Faker <br />
+            {userProfile.name} <br />
           </h4>
-          <h6 className="description">Music Producer</h6>
+          <h6 className="description">Member Since: {getMonthName(userProfile.startDate.getMonth())} {userProfile.startDate.getUTCFullYear()}</h6>
         </div>
       </div>
       <Row>
         <Col className="ml-auto mr-auto text-center" md="6">
           <p>
-            An artist of considerable range, Jane Faker — the name taken by
-            Melbourne-raised, Brooklyn-based Nick Murphy — writes, performs
-            and records all of his own music, giving it a warm, intimate
-            feel with a solid groove structure.
+            {userProfile.bio}
           </p>
           <br />
           <Button className="btn-round" color="default" outline>
-            <i className="fa fa-cog" /> Settings
+            <i className="fa fa-cog" /> Update
           </Button>
         </Col>
       </Row>
@@ -93,7 +93,7 @@ const UserComponent = (props:any) => {
                   toggle("1");
                 }}
               >
-                Follows
+                Library
               </NavLink>
             </NavItem>
             <NavItem>
@@ -103,7 +103,7 @@ const UserComponent = (props:any) => {
                   toggle("2");
                 }}
               >
-                Following
+                WishList
               </NavLink>
             </NavItem>
           </Nav>
@@ -175,29 +175,14 @@ const UserComponent = (props:any) => {
           </Row>
         </TabPane>
         <TabPane className="text-center" tabId="2" id="following">
-          <h3 className="text-muted">Not following anyone yet :(</h3>
-          <Button className="btn-round" color="warning">
-            Find artists
+          <h3 className="text-muted">No games wishlisted yet :(</h3>
+          <Button onClick={() => history.push(`/videogamesrawg`)} className="btn-round" color="warning">
+            Find Games
           </Button>
         </TabPane>
       </TabContent>
     </Container>
   </div>
-    /*
-      <div className="section section-dark">
-        <Container>
-          <Card>
-            <CardHeader>{userProfile.name}</CardHeader>
-            <CardBody>
-              <CardText>Email: {userProfile.email}</CardText>
-              <CardText>Member Since: {getMonthName(userProfile.startDate.getMonth())} {userProfile.startDate.getUTCFullYear()}</CardText>
-              <CardText>Bio:</CardText>
-              <CardText>{userProfile.bio}</CardText>
-            </CardBody>
-          </Card>
-        </Container>
-      </div>
-    */
   )
 }
 
